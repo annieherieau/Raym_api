@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'admin/:ressource', to: 'admin_dashboard#index'
+
   resources :products, only: [:index, :show]
   resource :cart, only: :show
   resources :cart_items, only: [:create, :update, :destroy]
@@ -8,6 +10,7 @@ Rails.application.routes.draw do
                registrations: 'users/registrations',
                passwords: 'users/passwords'
              },
+            #  'users' => 'users/registrations',
              defaults: { format: :json }
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
