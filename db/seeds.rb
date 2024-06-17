@@ -26,6 +26,15 @@ def reset_db
   puts('drop and reset all tables')
 end
 
+def super_admin()
+  User.create!(
+    email: ENV['DEFAULT_ADMIN_EMAIL'],
+    password: ENV['ADMIN_PASSWORD'],
+    admin: true
+  )
+  puts("super Admin créé - login 'DEFAULT_ADMIN_EMAIL' / mdp: '123456'")
+end
+
 def create_users(number)
   number.times do |i|
     User.create!(
@@ -33,7 +42,7 @@ def create_users(number)
       email: "user#{i+1}@az.az",
       password: '123456',
       first_name: Faker::Name.first_name,
-      last_name: Faker::Name.last_name 
+      last_name: Faker::Name.last_name
     )
   end
   puts("#{number} Users créés")
@@ -41,4 +50,5 @@ end
 
 # PERFORM SEEDING
 reset_db
+super_admin()
 create_users(2)
