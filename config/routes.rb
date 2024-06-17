@@ -1,6 +1,9 @@
 Rails.application.routes.draw do
   get 'admin/:ressource', to: 'admin_dashboard#index'
 
+  resources :products, only: [:index, :show]
+  resource :cart, only: :show
+  resources :cart_items, only: [:create, :update, :destroy]
   devise_for :users,
              controllers: {
                sessions: 'users/sessions',
