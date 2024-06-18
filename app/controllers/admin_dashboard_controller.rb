@@ -13,15 +13,4 @@ class AdminDashboardController < ApplicationController
           data: @users
         }, status: :ok
   end
-
-  private
-  def authenticate_admin!
-    if (!is_admin?)
-      render json: {
-        status: { code: 401,
-                  message: "Must be an Admin user." }
-      }, status: :unauthorized
-    end
-  end
-
 end
