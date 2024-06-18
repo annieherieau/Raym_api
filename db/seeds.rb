@@ -28,11 +28,11 @@ end
 
 def super_admin()
   User.create!(
-    email: ENV['DEFAULT_ADMIN_EMAIL'],
+    email: ENV['DEFAULT_ADMIN'],
     password: ENV['ADMIN_PASSWORD'],
     admin: true
   )
-  puts("super Admin créé - login 'DEFAULT_ADMIN_EMAIL' / mdp: '123456'")
+  puts("super Admin créé - login 'DEFAULT_ADMIN' / mdp: '123456'")
 end
 
 def create_users(number)
@@ -48,7 +48,19 @@ def create_users(number)
   puts("#{number} Users créés")
 end
 
+def create_products(number)
+  number.times do |i|
+    Product.create!(
+      name: Faker::Beer.brand,
+      description: Faker::Lorem.paragraph,
+      price: Faker::Number.decimal(l_digits: 2)
+    )
+  end
+  puts "#{number} Products creés"
+end
+
 # PERFORM SEEDING
 reset_db
 super_admin()
 create_users(2)
+create_products(3)
