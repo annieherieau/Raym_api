@@ -28,7 +28,7 @@ end
 
 def super_admin()
   User.create!(
-    email: ENV['DEFAULT_ADMIN'],
+  email: ENV['ADMIN_EMAIL'],
     password: ENV['ADMIN_PASSWORD'],
     admin: true
   )
