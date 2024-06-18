@@ -1,16 +1,23 @@
 class CartItemsController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_cart
 
   def create
-    product = Product.find(params[:product_id])
-    cart_item = @cart.cart_items.find_or_initialize_by(product: product)
-    cart_item.quantity += 1
-    if cart_item.save
-      render json: cart_item, status: :created, include: :product
+    @product = Product.find_by(id: params[:product_id].to_i)
+    puts ("params[:product_id]")
+    puts (params[:product_id])
+    if @product
+      @cart_item = @cart.cart_items.new(cart_item_params.merge(product: @product))
+      if @cart_item.save
+        render json: @cart_item, status: :created
+      else
+        render json: @cart_item.errors, status: :unprocessable_entity
+      end
     else
-      render json: cart_item.errors, status: :unprocessable_entity
+      render json: { error: 'Product not found' }, status: :not_found
     end
   end
+  
 
   def update
     cart_item = @cart.cart_items.find(params[:id])
@@ -30,10 +37,10 @@ class CartItemsController < ApplicationController
   private
 
   def set_cart
-    @cart = current_user.cart
+    @cart = current_user.cart || current_user.create_cart
   end
 
   def cart_item_params
-    params.require(:cart_item).permit(:quantity)
+    params.require(:cart_item).permit(:product_id, :quantity)
   end
 end
