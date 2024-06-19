@@ -1,6 +1,7 @@
 class UserMailer < ApplicationMailer
   default from: ENV['MAILJET_DEFAULT_FROM']
 
+  # email envoyé à la création du compte user
   def welcome_email(user)
     #on récupère l'instance user pour ensuite pouvoir la passer à la view en @user
     @user = user 
@@ -12,6 +13,7 @@ class UserMailer < ApplicationMailer
     mail(to: @user.email, subject: 'Bienvenue chez nous !') 
   end
 
+  # email envoyé pour "mot de pass oublié": contien le lien pour le reset password
   def reset_password_instructions(user, token)
     # je récupère l'instance user pour ensuite pouvoir la passer à la view en @user
     @user = user
@@ -19,5 +21,23 @@ class UserMailer < ApplicationMailer
 
     # je permets d'envoyer l’e-mail en définissant le destinataire et le sujet.
     mail(to: @user.email, subject: 'reset_password_instructions !')
+  end
+
+  # email envoyé au visiteur qui laisse un message en contact page
+  def visitor_contact_email(params)
+    @name = params[:name]
+    @email = params[:email]
+    @message = params[:message]
+    @url = application_url
+    mail(to:  @email, subject: 'RAYM Marketplacet: Nous avons reçu votre message')
+  end
+
+  # 
+  def admin_contact_email(params)
+    @name = params[:name]
+    @email = params[:email]
+    @message = params[:message]
+    @url = application_url
+    mail(to: ENV["ADMIN_EMAIL"], subject: 'RAYMot it: Nouveau contact')
   end
 end

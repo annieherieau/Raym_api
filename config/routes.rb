@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
   get 'admin/:ressource', to: 'admin_dashboard#index'
+  get 'my_profile', to: 'user_dashboard#show'
+  
+  post 'contact',  to: 'static_pages#send_contact_email'
 
   resources :products
   resource :cart, only: :show
@@ -19,5 +22,5 @@ Rails.application.routes.draw do
   get "up" => "rails/health#show", as: :rails_health_check
 
   # Defines the root path route ("/")
-  # root "posts#index"
+  # root "products#index"
 end

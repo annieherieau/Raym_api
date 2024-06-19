@@ -5,10 +5,9 @@ class CartItemsController < ApplicationController
   def show
     @cart_items = @cart.cart_items.includes(:product)
   end
+  # POST /cart_items
   def create
     @product = Product.find_by(id: params[:product_id].to_i)
-    puts ("params[:product_id]")
-    puts (params[:product_id])
     if @product
       @cart_item = @cart.cart_items.new(cart_item_params.merge(product: @product))
       if @cart_item.save
@@ -21,7 +20,7 @@ class CartItemsController < ApplicationController
     end
   end
   
-
+  # PUT ou PATCH /cart_items/:id
   def update
     cart_item = @cart.cart_items.find(params[:id])
     if cart_item.update(cart_item_params)
@@ -31,6 +30,7 @@ class CartItemsController < ApplicationController
     end
   end
 
+  # DELETE /cart_items/:id
   def destroy
     cart_item = @cart.cart_items.find(params[:id])
     cart_item.destroy

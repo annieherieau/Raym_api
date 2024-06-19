@@ -2,6 +2,7 @@ class CartsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_cart
 
+  # GET cart/
   def show
     @cart_items = @cart.cart_items.includes(:product)
     render json: @cart_items, include: :product
