@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  resources :variants
+  resources :orders
+  resources :options
   get 'admin/:ressource', to: 'admin_dashboard#index'
   get 'my_profile', to: 'user_dashboard#show'
   
