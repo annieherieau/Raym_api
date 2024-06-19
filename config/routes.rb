@@ -21,6 +21,8 @@ Rails.application.routes.draw do
     resources :comments, only: [:index]
   end
 
+  resources :comments, only: [:index, :show, :update, :destroy]
+
   # Ressource pour le panier
   resource :cart, only: :show
 
