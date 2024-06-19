@@ -16,10 +16,7 @@ Rails.application.routes.draw do
     resources :comments, only: [:create, :update, :destroy, :index]
   end
 
-  # Ressources pour les utilisateurs, incluant les commentaires imbriqués
-  resources :users do
-    resources :comments, only: [:index]
-  end
+  
 
   resources :comments, only: [:index, :show, :update, :destroy]
 
@@ -35,6 +32,15 @@ Rails.application.routes.draw do
     registrations: 'users/registrations',
     passwords: 'users/passwords'
   }, defaults: { format: :json }
+
+  devise_scope :user do
+    delete 'sign_out', to: 'users/sessions#destroy'
+  end
+
+  # Ressources pour les utilisateurs, incluant les commentaires imbriqués
+  resources :users do
+    resources :comments, only: [:index]
+  end
 
   # Route pour vérifier l'état de santé de l'application
   get "up" => "rails/health#show", as: :rails_health_check
