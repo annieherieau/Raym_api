@@ -2,15 +2,15 @@ class ProductsController < ApplicationController
   before_action :set_product, only: %i[ show update destroy ]
   before_action :authenticate_admin!, only: %i[ create update destroy ]
 
-  #GET /products
+  # GET /products
   def index
     @products = Product.all
-    render json: @products
+    render json: @products.as_json(methods: :photo_url)
   end
 
-  # GET / products/:id
+  # GET /products/:id
   def show
-    render json: @product
+    render json: @product.as_json(methods: :photo_url)
   end
 
   # POST /products
@@ -18,7 +18,7 @@ class ProductsController < ApplicationController
     @product = Product.new(product_params)
 
     if @product.save
-      render json: @product, status: :created
+      render json: @product.as_json(methods: :photo_url), status: :created
     else
       render json: @product.errors, status: :unprocessable_entity
     end
@@ -27,7 +27,7 @@ class ProductsController < ApplicationController
   # PATCH/PUT /products/:id
   def update
     if @product.update(product_params)
-      render json: @product
+      render json: @product.as_json(methods: :photo_url)
     else
       render json: @product.errors, status: :unprocessable_entity
     end
@@ -35,9 +35,8 @@ class ProductsController < ApplicationController
 
   # DELETE /products/:id
   def destroy
-    # TODO: interdire destroy pour les produits qui ont des orders
     if @product.destroy!
-      render json: { message: "Product deleted"}
+      render json: { message: "Product deleted" }
     else
       render json: @product.errors, status: :unprocessable_entity
     end
@@ -52,6 +51,6 @@ class ProductsController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def product_params
-    params.require(:product).permit(:name, :description, :price)
+    params.require(:product).permit(:name, :description, :price, :photo)
   end
 end
