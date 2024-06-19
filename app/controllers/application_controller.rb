@@ -7,7 +7,7 @@ class ApplicationController < ActionController::API
     if (!is_admin?)
       render json: {
         status: { code: 401,
-                  message: "Must be an Admin user lol." }
+                  message: "Must be an Admin user." }
       }, status: :unauthorized
     end
   end
