@@ -1,6 +1,9 @@
 class ApplicationController < ActionController::API
+  
+  protected
+  
   def is_admin?
-    current_user && current_user.admin
+    user_signed_in? && current_user.admin
   end
 
   def authenticate_admin!
