@@ -48,10 +48,10 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_20_080229) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "product_id", null: false
-    t.bigint "orders_id"
+    t.bigint "order_id"
     t.decimal "price"
     t.index ["cart_id"], name: "index_cart_items_on_cart_id"
-    t.index ["orders_id"], name: "index_cart_items_on_orders_id"
+    t.index ["order_id"], name: "index_cart_items_on_order_id"
     t.index ["product_id"], name: "index_cart_items_on_product_id"
   end
 
@@ -75,10 +75,10 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_20_080229) do
 
   create_table "item_variants", force: :cascade do |t|
     t.bigint "variants_id", null: false
-    t.bigint "cat_items_id", null: false
+    t.bigint "cart_items_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["cat_items_id"], name: "index_item_variants_on_cat_items_id"
+    t.index ["cart_items_id"], name: "index_item_variants_on_cart_items_id"
     t.index ["variants_id"], name: "index_item_variants_on_variants_id"
   end
 

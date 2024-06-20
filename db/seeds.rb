@@ -17,6 +17,7 @@ def reset_db
   Cart.destroy_all
   Product.destroy_all
   Option.destroy_all
+  Order.destroy_all
 
   # reset table sequence
   ActiveRecord::Base.connection.tables.each do |t|
