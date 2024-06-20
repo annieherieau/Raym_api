@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_06_19_182220) do
+ActiveRecord::Schema[7.1].define(version: 2024_06_20_080229) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -43,12 +43,15 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_19_182220) do
   end
 
   create_table "cart_items", force: :cascade do |t|
-    t.bigint "cart_id", null: false
+    t.bigint "cart_id"
     t.integer "quantity", default: 1
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "product_id", null: false
+    t.bigint "orders_id"
+    t.decimal "price"
     t.index ["cart_id"], name: "index_cart_items_on_cart_id"
+    t.index ["orders_id"], name: "index_cart_items_on_orders_id"
     t.index ["product_id"], name: "index_cart_items_on_product_id"
   end
 
@@ -68,6 +71,15 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_19_182220) do
     t.datetime "updated_at", null: false
     t.index ["product_id"], name: "index_comments_on_product_id"
     t.index ["user_id"], name: "index_comments_on_user_id"
+  end
+
+  create_table "item_variants", force: :cascade do |t|
+    t.bigint "variants_id", null: false
+    t.bigint "cat_items_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["cat_items_id"], name: "index_item_variants_on_cat_items_id"
+    t.index ["variants_id"], name: "index_item_variants_on_variants_id"
   end
 
   create_table "options", force: :cascade do |t|

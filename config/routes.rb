@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :item_variants
   resources :variants
   resources :orders
   resources :options
@@ -24,7 +25,7 @@ Rails.application.routes.draw do
   resources :comments, only: [:index, :show, :update, :destroy]
 
   # Ressource pour le panier
-  resource :cart, only: :show
+  resource :cart, only: [:show, :clear]
 
   # Ressources pour les éléments du panier
   resources :cart_items, only: [:create, :update, :destroy]
