@@ -14,6 +14,10 @@ Faker::UniqueGenerator.clear
 # Supprimer toutes les données existantes
 def reset_db
   User.destroy_all
+  Cart.destroy_all
+  Product.destroy_all
+  Option.destroy_all
+  Order.destroy_all
 
   # reset table sequence
   ActiveRecord::Base.connection.tables.each do |t|
@@ -50,13 +54,35 @@ end
 
 def create_products(number)
   number.times do |i|
-    Product.create!(
+    product = Product.create!(
       name: Faker::Beer.brand,
       description: Faker::Lorem.paragraph,
       price: Faker::Number.decimal(l_digits: 2)
     )
   end
-  puts "#{number} Products creés"
+  puts "#{number} Products créés"
+end
+
+def create_options(number)
+  number.times do |i|
+    Option.create!(
+        name: Faker::Science.element,
+        description: Faker::Lorem.paragraph,
+        product: Product.all.sample
+      )
+  end
+
+  puts "#{number} Options créées"
+end
+def create_variants(number)
+  number.times do |i|
+    Variant.create!(
+      name: Faker::Color.color_name,
+      description: Faker::Lorem.paragraph,
+      option: Option.all.sample
+    )
+  end
+  puts "#{number} Variants créés"
 end
 
 # PERFORM SEEDING
@@ -64,3 +90,5 @@ reset_db
 super_admin()
 create_users(2)
 create_products(3)
+create_options(5)
+create_variants(10)

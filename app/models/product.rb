@@ -1,6 +1,7 @@
 class Product < ApplicationRecord
     has_many :cart_items, dependent: :destroy
     has_one_attached :photo
+    has_many :options
     has_many :comments, dependent: :destroy
 
     enum category: [:velos, :gourdes, :casque, :tenues]

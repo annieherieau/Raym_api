@@ -10,6 +10,8 @@ class CartItemsController < ApplicationController
     @product = Product.find_by(id: params[:product_id].to_i)
     if @product
       @cart_item = @cart.cart_items.new(cart_item_params.merge(product: @product))
+      # @cart_item.price = @cart_item.quantity * @cart_item.product.price
+      # puts(@cart_item.price)
       if @cart_item.save
         render json: @cart_item, status: :created
       else

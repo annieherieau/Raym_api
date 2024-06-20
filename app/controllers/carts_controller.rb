@@ -1,11 +1,28 @@
 class CartsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_cart
+  before_action :set_action, only: %i[update]
+  before_action :authenticate_user!
 
   # GET cart/
   def show
     @cart_items = @cart.cart_items.includes(:product)
-    render json: @cart_items, include: :product
+    render json: {amount: @cart.amount, items: @cart_items.as_json(include: :product)}
+  end
+
+  # DELETE cart/clear
+  def update
+    case @action
+    when 'clear'
+      @cart.clear
+      render json: { message: "Panier vidé" }, status: :ok
+    when 'validate'
+      @cart.validate
+      render json: { message: "Panier validé" }, status: :ok
+    else
+      render json: @cart.errors, status: :unprocessable_entity
+    end
+
   end
 
   private
@@ -18,5 +35,13 @@ class CartsController < ApplicationController
       puts "No current user found"
       render json: { error: 'User not authenticated' }, status: :unauthorized
     end
+  end
+
+  def set_action
+    @action = params[:cart][:action]
+  end
+
+  def cart_params
+    params.require(:cart).permit(:action)
   end
 end
