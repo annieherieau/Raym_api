@@ -10,4 +10,20 @@ class Order < ApplicationRecord
     end
     amount
   end
+
+  # Annulation de l'order: les items rebasculent dans le panier
+  def cancel
+    # transferer les cart_items sur l'order
+    self.cart_items.each do |item|
+      item.update(
+        order_id: nil,
+        cart_id: self.user.cart.id
+      )
+    end
+  end
+
+  def send_order_emails
+    UserMailer.order_to_user(self).deliver_now
+    UserMailer.order_to_admin(self).deliver_now
+  end
 end

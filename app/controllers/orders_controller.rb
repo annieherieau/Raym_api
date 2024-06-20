@@ -1,43 +1,31 @@
 class OrdersController < ApplicationController
-  before_action :set_order, only: %i[ show update destroy ]
+  before_action :set_order, only: %i[ show destroy ]
+  before_action :authenticate_user!
 
   # GET /orders
   def index
-    @orders = Order.all
-
+    if (is_admin?)
+      @orders = Order.all
+    else
+      @orders = Order.all.where(user: current_user)
+    end
     render json: @orders
   end
 
   # GET /orders/1
   def show
-    puts(params[:id])
     @cart_items = @order.cart_items.includes(:product)
     render json: {amount: @order.amount, items: @cart_items.as_json(include: :product)}
   end
 
-  # POST /orders
-  def create
-    @order = Order.new(order_params)
-
-    if @order.save
-      render json: @order, status: :created, location: @order
-    else
-      render json: @order.errors, status: :unprocessable_entity
-    end
-  end
-
-  # PATCH/PUT /orders/1
-  def update
-    if @order.update(order_params)
-      render json: @order
-    else
-      render json: @order.errors, status: :unprocessable_entity
-    end
-  end
-
   # DELETE /orders/1
   def destroy
-    @order.destroy!
+    @order.cancel
+    if @order.destroy!
+      render json: { message: "Commande annulée: produits renvoyés au panier" }
+    else
+      render json: @order.errors, status: :unprocessable_entity
+    end
   end
 
   private
@@ -45,6 +33,5 @@ class OrdersController < ApplicationController
     def set_order
       @order = Order.find(params[:id])
     end
-
   
 end

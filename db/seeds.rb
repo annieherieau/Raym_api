@@ -18,6 +18,7 @@ def reset_db
   Product.destroy_all
   Option.destroy_all
   Order.destroy_all
+  Comment.destroy_all
 
   # reset table sequence
   ActiveRecord::Base.connection.tables.each do |t|
@@ -74,6 +75,7 @@ def create_options(number)
 
   puts "#{number} Options créées"
 end
+
 def create_variants(number)
   number.times do |i|
     Variant.create!(
