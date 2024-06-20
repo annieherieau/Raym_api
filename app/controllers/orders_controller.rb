@@ -10,7 +10,9 @@ class OrdersController < ApplicationController
 
   # GET /orders/1
   def show
-    render json: @order
+    puts(params[:id])
+    @cart_items = @order.cart_items.includes(:product)
+    render json: {amount: @order.amount, items: @cart_items.as_json(include: :product)}
   end
 
   # POST /orders
@@ -44,8 +46,5 @@ class OrdersController < ApplicationController
       @order = Order.find(params[:id])
     end
 
-    # Only allow a list of trusted parameters through.
-    def order_params
-      params.fetch(:order, {})
-    end
+  
 end

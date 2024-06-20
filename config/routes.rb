@@ -20,12 +20,10 @@ Rails.application.routes.draw do
     resources :comments, only: [:create, :update, :destroy, :index]
   end
 
-  
-
   resources :comments, only: [:index, :show, :update, :destroy]
 
   # Ressource pour le panier
-  resource :cart, only: [:show, :clear]
+  resource :cart, only: [:show, :update]
 
   # Ressources pour les éléments du panier
   resources :cart_items, only: [:create, :update, :destroy]
