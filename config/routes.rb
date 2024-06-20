@@ -1,8 +1,17 @@
 Rails.application.routes.draw do
+
   resources :item_variants
   resources :variants
   resources :orders
   resources :options
+
+  # Routes pour le paiment STRIPE
+  scope '/checkout' do
+    post 'create', to: 'checkout#create', as: '/checkout_create'
+    get 'success', to: 'checkout#success', as: '/checkout_success'
+    get 'cancel', to: 'checkout#cancel', as: '/checkout_cancel'
+  end
+
   # Ressources pour les commentaires
   resources :comments, only: [:index, :show]
 
