@@ -3,8 +3,10 @@ class Product < ApplicationRecord
     has_one_attached :photo
     has_many :comments, dependent: :destroy
 
+    enum category: [:velos, :gourdes, :casque, :tenues]
+
     def photo_url
         Rails.application.routes.url_helpers.url_for(photo) if photo.attached?
-      end
+    end
 
 end
