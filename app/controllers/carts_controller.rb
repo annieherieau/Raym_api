@@ -1,4 +1,5 @@
 class CartsController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_cart
   before_action :set_action, only: %i[update]
   before_action :authenticate_user!
@@ -27,7 +28,13 @@ class CartsController < ApplicationController
   private
 
   def set_cart
-    @cart = current_user.cart || current_user.create_cart
+    if current_user
+      @cart = current_user.cart || current_user.create_cart
+      puts "Cart set successfully for user #{current_user.id}"
+    else
+      puts "No current user found"
+      render json: { error: 'User not authenticated' }, status: :unauthorized
+    end
   end
 
   def set_action

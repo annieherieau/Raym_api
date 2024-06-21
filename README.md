@@ -1,6 +1,6 @@
 # Rails Api Boiler Plate
 
-App Rails en mode API only:
+App Rails en mode API only :
 - users avec authentification (devise + devise-jwt)
 - mailer
 
