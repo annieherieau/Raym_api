@@ -18,7 +18,7 @@ class CartsController < ApplicationController
       render json: { message: "Panier vidé" }, status: :ok
     when 'validate'
       @cart.validate
-      render json: { message: "Panier validé" }, status: :ok
+      render json: {order: current_user.orders.all.last,  message: "Panier validé" }, status: :ok
     else
       render json: @cart.errors, status: :unprocessable_entity
     end

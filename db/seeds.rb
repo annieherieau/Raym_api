@@ -42,15 +42,16 @@ end
 
 def create_users(number)
   number.times do |i|
-    User.create!(
+    user = User.create!(
       # email: Faker::Internet.unique.email,
       email: "user#{i+1}@az.az",
       password: '123456',
       first_name: Faker::Name.first_name,
       last_name: Faker::Name.last_name
     )
+    create_cart_items(Faker::Number.between(from: 0, to: 4))
   end
-  puts("#{number} Users créés")
+  puts("#{number} Users créés avec panier")
 end
 
 def create_products(number)
@@ -87,10 +88,34 @@ def create_variants(number)
   puts "#{number} Variants créés"
 end
 
+def create_cart_items(number, order=nil)
+  cart = order ? nil : User.all.sample.cart
+  number.times do |i|
+    CartItem.create!(
+      cart: cart,
+      order: order,
+      product: Product.all.sample,
+      quantity: Faker::Number.between(from: 1, to: 3)
+    )
+  end
+  puts "#{number} Cart_items ajouté dans #{order ? 'l\'order' : 'le panier'}"
+end
+
+def create_orders(number)
+  number.times do |i|
+    order = Order.create!(
+      user: User.all.sample
+    )
+    create_cart_items(Faker::Number.between(from: 1, to: 4), order)
+  end
+  puts "#{number} Orders créés"
+end
+
 # PERFORM SEEDING
 reset_db
 super_admin()
-create_users(2)
-create_products(3)
+create_products(10)
 create_options(5)
 create_variants(10)
+create_users(5)
+create_orders(10)
