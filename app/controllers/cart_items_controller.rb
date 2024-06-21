@@ -2,6 +2,9 @@ class CartItemsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_cart
 
+  def show
+    @cart_items = @cart.cart_items.includes(:product)
+  end
   # POST /cart_items
   def create
     @product = Product.find_by(id: params[:product_id].to_i)
