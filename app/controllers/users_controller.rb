@@ -6,6 +6,12 @@ class UsersController < ApplicationController
     end
 
     def check_admin
-      render json: current_user.admin?
+      is_admin = current_user&.admin? # Assuming you have an `admin?` method on your User model
+      render json: { admin: is_admin }
     end
+
+    def admin?
+      self.admin
+    end
+
   end
