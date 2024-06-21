@@ -1,10 +1,17 @@
+# app/controllers/products_controller.rb
+
 class ProductsController < ApplicationController
-  before_action :set_product, only: %i[ show update destroy ]
-  before_action :authenticate_admin!, only: %i[ create update destroy ]
+  before_action :set_product, only: [:show, :update, :destroy]
+  before_action :authenticate_admin!, only: [:create, :update, :destroy]
 
   # GET /products
   def index
-    @products = Product.all
+    if params[:category].present?
+      @products = Product.where(category: params[:category])
+    else
+      @products = Product.all
+    end
+
     render json: @products.as_json(methods: :photo_url)
   end
 
@@ -35,7 +42,7 @@ class ProductsController < ApplicationController
 
   # DELETE /products/:id
   def destroy
-    if @product.destroy!
+    if @product.destroy
       render json: { message: "Product deleted" }
     else
       render json: @product.errors, status: :unprocessable_entity
@@ -51,6 +58,6 @@ class ProductsController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def product_params
-    params.require(:product).permit(:name, :description, :price, :photo)
+    params.require(:product).permit(:name, :description, :price, :photo, :category)
   end
 end
