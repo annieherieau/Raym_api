@@ -20,6 +20,8 @@ class Order < ApplicationRecord
         order_id: nil,
         cart_id: self.user.cart.id
       )
+    puts('$$$$$$$$$$')
+    puts(self.cart_items)
     end
   
   end

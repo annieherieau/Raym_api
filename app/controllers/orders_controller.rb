@@ -1,5 +1,6 @@
 class OrdersController < ApplicationController
   before_action :set_order, only: %i[ show destroy ]
+  before_action :not_owner, only: %i[ show destroy ]
   before_action :authenticate_user!
 
   # GET /orders
@@ -32,6 +33,15 @@ class OrdersController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_order
       @order = Order.find(params[:id])
+    end
+
+    def not_owner
+      if (@order.user != current_user)
+        render json: {
+          status: { code: 401,
+                    message: "Unauthorised." }
+        }, status: :unauthorized
+      end
     end
   
 end
