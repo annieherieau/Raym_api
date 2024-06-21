@@ -16,14 +16,11 @@ class Order < ApplicationRecord
   def cancel
     # transferer les cart_items sur l'order
     self.cart_items.each do |item|
-      item.update(
+        item.update(
         order_id: nil,
         cart_id: self.user.cart.id
       )
-    puts('$$$$$$$$$$')
-    puts(self.cart_items)
-    end
-  
+      end
   end
 
   def send_order_emails
