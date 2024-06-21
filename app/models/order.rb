@@ -1,6 +1,6 @@
 class Order < ApplicationRecord
   belongs_to :user
-  has_many :cart_items, dependent: :destroy
+  has_many :cart_items
 
   # calcult du total
   def amount
@@ -20,6 +20,7 @@ class Order < ApplicationRecord
         cart_id: self.user.cart.id
       )
     end
+  
   end
 
   def send_order_emails
