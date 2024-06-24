@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_06_21_103709) do
+ActiveRecord::Schema[7.1].define(version: 2024_06_24_103718) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -60,6 +60,21 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_21_103709) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_carts_on_user_id"
+  end
+
+  create_table "categories", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "color_products", force: :cascade do |t|
+    t.bigint "color_id", null: false
+    t.bigint "product_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["color_id"], name: "index_color_products_on_color_id"
+    t.index ["product_id"], name: "index_color_products_on_product_id"
   end
 
   create_table "colors", force: :cascade do |t|
@@ -112,9 +127,10 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_21_103709) do
     t.string "name"
     t.text "description"
     t.decimal "price"
+    t.bigint "category_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "category"
+    t.index ["category_id"], name: "index_products_on_category_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -149,6 +165,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_21_103709) do
   add_foreign_key "cart_items", "carts"
   add_foreign_key "cart_items", "products"
   add_foreign_key "carts", "users"
+  add_foreign_key "color_products", "colors"
+  add_foreign_key "color_products", "products"
   add_foreign_key "colors", "products"
   add_foreign_key "comments", "products"
   add_foreign_key "comments", "users"

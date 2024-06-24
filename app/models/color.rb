@@ -1,3 +1,5 @@
 class Color < ApplicationRecord
-    belongs_to :product
-end
+    has_many :color_products
+    has_many :products, through: :color_products
+  end
+  
