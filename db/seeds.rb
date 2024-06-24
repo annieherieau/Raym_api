@@ -15,10 +15,12 @@ Faker::UniqueGenerator.clear
 def reset_db
   User.destroy_all
   Cart.destroy_all
+  CartItems.destroy_all
   Product.destroy_all
   Option.destroy_all
   Order.destroy_all
   Comment.destroy_all
+  Like.destroy_all
 
   # reset table sequence
   ActiveRecord::Base.connection.tables.each do |t|
