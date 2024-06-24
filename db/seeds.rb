@@ -15,6 +15,7 @@ Faker::UniqueGenerator.clear
 def reset_db
   User.destroy_all
   Cart.destroy_all
+  CartItem.destroy_all
   Product.destroy_all
   Option.destroy_all
   Order.destroy_all

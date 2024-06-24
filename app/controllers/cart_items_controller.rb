@@ -3,7 +3,7 @@ class CartItemsController < ApplicationController
   before_action :set_cart
 
   def show
-    @cart_items = @cart.cart_items.includes(:product)
+    @cart_items = @cart.cart_items.order('created_at').includes(:product)
   end
   # POST /cart_items
   def create
