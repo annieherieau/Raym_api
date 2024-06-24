@@ -39,7 +39,7 @@ class CheckoutController < ApplicationController
     @order.update(paid: true)
     if @order
       @order.send_order_emails
-      render json: {message: "Paiement réussi"}, status: :ok
+      render json: {order: @order, message: "Paiement réussi"}, status: :ok
     end
   end
 
