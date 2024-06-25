@@ -22,7 +22,7 @@ def reset_db
   Color.destroy_all
   Order.destroy_all
   Comment.destroy_all
-
+  ActiveStorage::Attachment.all.each { |attachment| attachment.purge }
   # reset table sequence
   ActiveRecord::Base.connection.tables.each do |t|
     # postgreSql

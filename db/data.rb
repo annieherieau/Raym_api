@@ -15,15 +15,15 @@ CATEGORIES = [
 ]
 PHOTO_PATH='app/assets/images/'
 PRODUCTS = [
-  {name: 'La Rafale', price: 2499, category:'On Road', color:'Beige', photo: 'VELO6RAPTOR-Raym.png'},
-  {name: 'La Rafale', price: 2499, category:'On Road', color:'Rose', photo: 'VELO6RAPTOR-Annie.png'},
-  {name: 'La Rafale', price: 2499, category:'On Road', color:'Jaune', photo: 'VELO6RAPTOR-Malo.png'},
-  {name: 'La Rafale', price: 2499, category:'On Road', color:'Gris', photo: 'VELO6RAPTOR-Robena.png'},
+  {name: 'La Rafale', price: 2499, category:'On Road', color:'Beige', photo: 'OnRoad-Raym.png'},
+  {name: 'La Rafale', price: 2499, category:'On Road', color:'Rose', photo: 'OnRoad-Annie.png'},
+  {name: 'La Rafale', price: 2499, category:'On Road', color:'Jaune', photo: 'OnRoad-Malo.png'},
+  {name: 'La Rafale', price: 2499, category:'On Road', color:'Gris', photo: 'OnRoad-Robena.png'},
   
-  {name: 'Vélo6Raptor', price: 5999, category:'Off Road', color:'Beige', photo: 'Hybrid-Raym.png'},
-  {name: 'Vélo6Raptor', price: 5999, category:'Off Road', color:'Rose', photo: 'OnRoad-Annie.png'},
-  {name: 'Vélo6Raptor', price: 5999, category:'Off Road', color:'Jaune', photo: 'OnRoad-Malo.png'},
-  {name: 'Vélo6Raptor', price: 5999, category:'Off Road', color:'Gris', photo: 'OnRoad-Robena.png'},
+  {name: 'Vélo6Raptor', price: 5999, category:'Off Road', color:'Beige', photo: 'VELO6RAPTOR-RAYM.png'},
+  {name: 'Vélo6Raptor', price: 5999, category:'Off Road', color:'Rose', photo: 'VELO6RAPTOR-Annie.png'},
+  {name: 'Vélo6Raptor', price: 5999, category:'Off Road', color:'Jaune', photo: 'VELO6RAPTOR-Malo.png'},
+  {name: 'Vélo6Raptor', price: 5999, category:'Off Road', color:'Gris', photo: 'VELO6RAPTOR-Robena.png'},
 
   {name: 'Overcharge', price: 3799, category:'Hybrid', color:'Beige', photo: 'Hybrid-Raym.png'},
   {name: 'Overcharge', price: 3799, category:'Hybrid', color:'Rose', photo: 'Hybrid-Annie.png'},
