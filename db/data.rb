@@ -25,8 +25,8 @@ PRODUCTS = [
   {name: 'Vélo6Raptor', price: 5999, category:'Off Road', color:'Jaune', photo: 'OnRoad-Malo.png'},
   {name: 'Vélo6Raptor', price: 5999, category:'Off Road', color:'Gris', photo: 'OnRoad-Robena.png'},
 
-  {name: 'Over Charge', price: 3799, category:'Hybrid', color:'Beige', photo: 'Hybrid-Raym.png'},
-  {name: 'Over Charge', price: 3799, category:'Hybrid', color:'Rose', photo: 'Hybrid-Annie.png'},
-  {name: 'Over Charge', price: 3799, category:'Hybrid', color:'Jaune', photo: 'Hybrid-Malo.png'},
-  {name: 'Over Charge', price: 3799, category:'Hybrid', color:'Gris', photo: 'Hybrid-Robena.png'}
+  {name: 'Overcharge', price: 3799, category:'Hybrid', color:'Beige', photo: 'Hybrid-Raym.png'},
+  {name: 'Overcharge', price: 3799, category:'Hybrid', color:'Rose', photo: 'Hybrid-Annie.png'},
+  {name: 'Overcharge', price: 3799, category:'Hybrid', color:'Jaune', photo: 'Hybrid-Malo.png'},
+  {name: 'Overcharge', price: 3799, category:'Hybrid', color:'Gris', photo: 'Hybrid-Robena.png'}
 ]
