@@ -9,7 +9,6 @@ class Product < ApplicationRecord
     has_many :category_products
     has_many :categories, through: :category_products
 
-    enum category: [:velos, :gourdes, :casque, :tenues]
 
     def photo_url
         Rails.application.routes.url_helpers.url_for(photo) if photo.attached?
