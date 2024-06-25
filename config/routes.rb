@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :color_products
+  resources :categories
   resources :colors
 
   resources :item_variants
@@ -57,6 +59,7 @@ Rails.application.routes.draw do
   # Route pour vérifier l'état de santé de l'application
   get "up" => "rails/health#show", as: :rails_health_check
   get 'current_user', to: 'users#current'
+  get 'admin_check', to: 'users#check_admin'
 
   # Définir la route racine
   # root "products#index"

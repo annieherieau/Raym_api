@@ -73,4 +73,5 @@ Rails.application.configure do
   config.action_controller.raise_on_missing_callback_actions = true
   Rails.application.routes.default_url_options[:host] = ENV['DEV_HOST']
 
+
 end

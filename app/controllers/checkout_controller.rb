@@ -6,8 +6,7 @@ class CheckoutController < ApplicationController
 # creation du checkout à partir de l'order
   def create
     application_url = Rails.env.production? ? ENV['PROD_HOST'] : ENV['DEV_HOST']
-    application_url += checkout_success_path
-    puts('***********')
+    application_url += '/order/'+  (@order.id).to_s + '?action='
     @session = Stripe::Checkout::Session.create(
       payment_method_types: ['card'],
       line_items: [
@@ -26,8 +25,8 @@ class CheckoutController < ApplicationController
         order_id: @order.id
       },
       mode: 'payment',
-      success_url: application_url +'?session_id={CHECKOUT_SESSION_ID}',
-      cancel_url: application_url + '?order_id=' + (@order.id).to_s
+      success_url: application_url + 'success&session_id={CHECKOUT_SESSION_ID}',
+      cancel_url: application_url + 'cancel'
     )
     # redirect_to @session.url, allow_other_host: true
     # dans le front renvoyer le user vers @session.url
@@ -37,10 +36,10 @@ class CheckoutController < ApplicationController
   # GET /checkout/success?session_id=stripe_session_id
   def success
     @order = Order.find(@order_id)
-
+    @order.update(paid: true)
     if @order
       @order.send_order_emails
-      render json: {message: "Paiement réussi"}, status: :ok
+      render json: {order: @order, message: "Paiement réussi"}, status: :ok
     end
   end
 

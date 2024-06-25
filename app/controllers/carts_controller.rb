@@ -6,7 +6,7 @@ class CartsController < ApplicationController
 
   # GET cart/
   def show
-    @cart_items = @cart.cart_items.includes(:product)
+    @cart_items = @cart.cart_items.order('created_at').includes(:product)
     render json: {amount: @cart.amount, items: @cart_items.as_json(include: :product)}
   end
 
