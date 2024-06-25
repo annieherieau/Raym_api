@@ -27,8 +27,8 @@ class OrdersController < ApplicationController
   # DELETE /orders/1
   def destroy
     @order.cancel
-    if @order.delete!
-      render json: { message: "Commande annulée: produits renvoyés au panier" }
+    if @order.delete
+      render json: { message: "Commande annulée: produits renvoyés au panier" }, status: :ok
     else
       render json: @order.errors, status: :unprocessable_entity
     end
