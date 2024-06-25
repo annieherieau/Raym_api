@@ -1,17 +1,15 @@
-# Rails Api Boiler Plate
-
-App Rails en mode API only :
+# Raym Api
+THP: Projet final en équipe du module Developpeur
+Application Rails en mode API only :
 - users avec authentification (devise + devise-jwt)
-- mailer
-
-**La team RAYM** : [Robena](https://github.com/Robe-Ras), [Annie](https://github.com/annieherieau), [Yann](https://github.com/YannRZG) et [Malo](https://github.com/Korblen)
-
-
-## Stack
-- Ruby 3.3.0
-- Rails 7.1.3.4
+- mailer : Mailjet
+- paiement : Stripe
+- Application front (repo): https://github.com/annieherieau/Raym_marketplace
+- Application front (prod): [raym-marketplace.onrender.com](https://raym-marketplace.onrender.com/)
 
 ## Installation en local
+- Ruby 3.3.0
+- Rails 7.1.3.4
 
 Clone repository
 
@@ -40,26 +38,20 @@ Launch server
 rails server
 ```
 ## Environnement variables (secrets)
+To run this project, you will need to add the following environment variables to your .env file
 - super Admin
   - ADMIN_EMAIL
   - ADMIN_PASSWORD
 - url de l'application front
   - DEV_HOST
   - PROD_HOST
-- API Stripe ()
+- API Stripe
   - STRIPE_PUBLISHABLE_KEY
   - STRIPE_SECRET_KEY
-- configuration smtp (exemple)
+- configuration smtp (exemple Mailjet)
   - MAILJET_LOGIN
   - MAILJET_PWD
   - MAILJET_DEFAULT_FROM
   - MAILJET_SENDER_DOMAIN
 
-
-# Front app en réact
-DEV_HOST='http://localhost:5173'
-PROD_HOST="http://localhost:5173"
-
-# Stripe
-STRIPE_PUBLISHABLE_KEY='pk_test_51H2wUSLsDTxFz3YrCj92W27Zj0wfN54ictDL5ZTbDPXsquo7tadmr6wWB7QBd7P3uDZfpuXVim1ZosxEAMYAGcs0003dlL7aa5'
-STRIPE_SECRET_KEY='sk_test_51H2wUSLsDTxFz3YrBrgykuBGFvYnrua3QrjlkxiS5wMUaMpTOYbIZ4ZSjYcrr2aAo5obrAWrdiqXUkkFwafp0Vpg00DrBxdS2U'
+**La team RAYM** : [Robena](https://github.com/Robe-Ras), [Annie](https://github.com/annieherieau), [Yann](https://github.com/YannRZG) et [Malo](https://github.com/Korblen)
