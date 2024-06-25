@@ -1,7 +1,7 @@
 class Order < ApplicationRecord
   belongs_to :user
   has_many :cart_items, dependent: :destroy
-  has_many :orders, through: :cart_items
+  has_many :products, through: :cart_items
 
   # calcult du total
   def amount

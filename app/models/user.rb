@@ -9,7 +9,7 @@ class User < ApplicationRecord
         :jwt_authenticatable, jwt_revocation_strategy: self
 
   has_one :cart, dependent: :destroy
-  has_many :orders
+  has_many :orders, dependent: :destroy
   after_create :create_cart, :welcome_send
   
   def jwt_payload

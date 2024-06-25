@@ -3,10 +3,7 @@ Rails.application.routes.draw do
   resources :categories
   resources :colors
 
-  resources :item_variants
-  resources :variants
   resources :orders
-  resources :options
 
   # Routes pour le paiment STRIPE
   scope '/checkout' do

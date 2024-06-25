@@ -10,6 +10,7 @@
 require 'faker'
 Faker::Config.locale='fr'
 Faker::UniqueGenerator.clear
+require_relative './data.rb'
 
 # Supprimer toutes les données existantes
 def reset_db
@@ -17,7 +18,8 @@ def reset_db
   Cart.destroy_all
   CartItem.destroy_all
   Product.destroy_all
-  Option.destroy_all
+  Category.destroy_all
+  Color.destroy_all
   Order.destroy_all
   Comment.destroy_all
 
@@ -31,8 +33,12 @@ def reset_db
 
   puts('drop and reset all tables')
 end
+def boolean_ratio(percent=50)
+  ratio = percent.to_f/100
+  Faker::Boolean.boolean(true_ratio: ratio)
+end
 
-def super_admin()
+def super_admin
   User.create!(
   email: ENV['ADMIN_EMAIL'],
     password: ENV['ADMIN_PASSWORD'],
@@ -55,38 +61,38 @@ def create_users(number)
   puts("#{number} Users créés avec panier")
 end
 
-def create_products(number)
-  number.times do |i|
-    product = Product.create!(
-      name: Faker::Beer.brand,
-      description: Faker::Lorem.paragraph,
-      price: Faker::Number.decimal(l_digits: 2)
+def create_colors
+  COLORS.each do |color|
+    Color.create!(
+      name: color[:name],
+      collection: color[:collection]
     )
   end
-  puts "#{number} Products créés"
+  puts("#{COLORS.length} Colors créées")
 end
 
-def create_options(number)
-  number.times do |i|
-    Option.create!(
-        name: Faker::Science.element,
-        description: Faker::Lorem.paragraph,
-        product: Product.all.sample
-      )
-  end
-
-  puts "#{number} Options créées"
-end
-
-def create_variants(number)
-  number.times do |i|
-    Variant.create!(
-      name: Faker::Color.color_name,
-      description: Faker::Lorem.paragraph,
-      option: Option.all.sample
+def create_categories
+  CATEGORIES.each do |category|
+    Category.create!(
+      name: category[:name]
     )
   end
-  puts "#{number} Variants créés"
+  puts("#{CATEGORIES.length} Categories créées")
+end
+
+def create_products
+  PRODUCTS.each do |product|
+    new_product = Product.create!(
+      name: product[:name],
+      description: Faker::Lorem.paragraph,
+      price: product[:price],
+      category: Category.find_by(name: product[:category]),
+      color: Color.find_by(name: product[:color])
+    )
+    # photo
+    new_product.photo.attach(io: File.open(PHOTO_PATH+product[:photo]), filename: product[:photo])
+  end
+  puts "#{PRODUCTS.length} Products créés"
 end
 
 def create_cart_items(number, order=nil)
@@ -105,7 +111,8 @@ end
 def create_orders(number)
   number.times do |i|
     order = Order.create!(
-      user: User.all.sample
+      user: User.all.sample,
+      paid: boolean_ratio
     )
     create_cart_items(Faker::Number.between(from: 1, to: 4), order)
   end
@@ -114,9 +121,10 @@ end
 
 # PERFORM SEEDING
 reset_db
-super_admin()
-create_products(10)
-create_options(5)
-create_variants(10)
-create_users(5)
-create_orders(10)
+create_categories()
+create_colors()
+create_products()
+# super_admin()
+# create_users(5)
+# create_orders(5)
+
