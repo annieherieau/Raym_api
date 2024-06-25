@@ -7,17 +7,21 @@ class ProductsController < ApplicationController
   # GET /products
   def index
     if params[:category].present?
-      @products = Product.where(category: params[:category])
+      @products = Product.where(category: params[:category]).map do |product|
+        product_with_details(product)
+      end
     else
-      @products = Product.all
+      @products = Product.all.map do |product|
+        product_with_details(product)
+      end
     end
 
-    render json: @products.as_json(methods: :photo_url)
+    render json: @products, status: :ok
   end
 
   # GET /products/:id
   def show
-    render json: @product.as_json(methods: :photo_url)
+    render json: product_with_details(@product)
   end
 
   # POST /products
@@ -25,7 +29,7 @@ class ProductsController < ApplicationController
     @product = Product.new(product_params)
 
     if @product.save
-      render json: @product.as_json(methods: :photo_url), status: :created
+      render json: product_with_details(@product), status: :created
     else
       render json: @product.errors, status: :unprocessable_entity
     end
@@ -54,6 +58,14 @@ class ProductsController < ApplicationController
   # Use callbacks to share common setup or constraints between actions.
   def set_product
     @product = Product.find(params[:id])
+  end
+
+  def product_with_details(product)
+    product.as_json.merge(
+      category: product.category,
+      color:  product.color,
+      photo_url: product.photo_url
+    )
   end
 
   # Only allow a list of trusted parameters through.
