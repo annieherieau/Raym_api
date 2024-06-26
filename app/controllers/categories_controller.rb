@@ -8,10 +8,12 @@ class CategoriesController < ApplicationController
     when "configurator"
       @categories = Hash.new
       Category.where(configurator: true).each do |category|
-        @categories[category.name] = category.products.map do |product|
-           product[:name] = "#{product.name} - #{product.color.collection}"
-           product.as_json.merge(image: product.photo_url)
-        end
+        products = category.products.map do |product|
+          product[:name] = "#{product.name} - #{product.color.collection}"
+          product.as_json.merge(image: product.photo_url)
+       end
+       type = {bike: category.bike, clothing: category.clothing}
+        @categories[category.name] = {type: type, products: products}
       end
     when "shop"
       
