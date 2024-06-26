@@ -15,7 +15,7 @@ CATEGORIES = [
 ]
 PHOTO_PATH='app/assets/images/'
 PRODUCTS = [
-  {name: 'La Rafale', price: 2499, category:'On Road', color:'Beige', photo: 'VELO6RAPTOR-Raym.png'},
+  {name: 'La Rafale', price: 2499, category:'On Road', color:'Beige', photo: 'VELO6RAPTOR-RAYM.png'},
   {name: 'La Rafale', price: 2499, category:'On Road', color:'Rose', photo: 'VELO6RAPTOR-Annie.png'},
   {name: 'La Rafale', price: 2499, category:'On Road', color:'Jaune', photo: 'VELO6RAPTOR-Malo.png'},
   {name: 'La Rafale', price: 2499, category:'On Road', color:'Gris', photo: 'VELO6RAPTOR-Robena.png'},
