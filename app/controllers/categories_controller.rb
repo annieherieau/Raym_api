@@ -2,15 +2,18 @@ class CategoriesController < ApplicationController
   before_action :set_category, only: %i[ show update destroy ]
   before_action :authenticate_admin!, only: [:create, :update, :destroy]
 
-  # GET /categories  -- pour le configurateur /categories?configurator=true
+  # GET /categories  -- pour le configurateur /categories?display=configurator
   def index
-    if params[:configurator].present? && params[:configurator]="true"
+    case params[:display]
+    when "configurator"
       @categories = Hash.new
       Category.where(configurator: true).each do |category|
         @categories[category.name] = category.products.map do |product|
            product.as_json.merge(image: product.photo_url)
         end
       end
+    when "shop"
+      
     else
       @categories = Category.all
     end
