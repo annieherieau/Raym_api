@@ -23,7 +23,6 @@ def reset_db
   Order.destroy_all
   Comment.destroy_all
   ActiveStorage::Attachment.all.each { |attachment| attachment.purge }
-
   # reset table sequence
   ActiveRecord::Base.connection.tables.each do |t|
     # postgreSql
@@ -75,7 +74,10 @@ end
 def create_categories
   CATEGORIES.each do |category|
     Category.create!(
-      name: category[:name]
+      name: category[:name],
+      configurator: category[:configurator] || false,
+      bike: category[:bike] || false,
+      clothing: category[:clothing] || false,
     )
   end
   puts("#{CATEGORIES.length} Categories créées")
@@ -126,6 +128,6 @@ create_categories()
 create_colors()
 create_products()
 super_admin()
-# create_users(5)
-# create_orders(5)
+create_users(5)
+create_orders(5)
 

@@ -5,7 +5,7 @@ class CheckoutController < ApplicationController
 
 # creation du checkout à partir de l'order
   def create
-    application_url = Rails.env.production? ? ENV['PROD_HOST'] : ENV['DEV_HOST']
+    application_url = Rails.env.production? ? ENV['PROD_HOST'] || 'localhost:3000'  : ENV['DEV_HOST'] || 'localhost:3000' 
     application_url += '/order/'+  (@order.id).to_s + '?action='
     @session = Stripe::Checkout::Session.create(
       payment_method_types: ['card'],
