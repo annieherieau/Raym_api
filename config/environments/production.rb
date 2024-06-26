@@ -5,7 +5,7 @@ Rails.application.configure do
   
   # MAILER
   config.action_mailer.perform_deliveries = true
-  config.action_mailer.default_url_options = { host: ENV['PROD_HOST'] }
+  config.action_mailer.default_url_options = { host: ENV['PROD_HOST'] || 'localhost:3000'  }
   
   # Config SMTP : Mailjet
   ActionMailer::Base.smtp_settings = {
@@ -103,6 +103,6 @@ Rails.application.configure do
   # Skip DNS rebinding protection for the default health check endpoint.
   # config.host_authorization = { exclude: ->(request) { request.path == "/up" } }
 
-  Rails.application.routes.default_url_options[:host] = ENV['PROD_HOST']
+  Rails.application.routes.default_url_options[:host] = ENV['BACK_HOST'] || 'localhost:3000'
 
 end
