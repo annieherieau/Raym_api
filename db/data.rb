@@ -6,11 +6,11 @@ COLORS = [
   {name: 'standard', collection: 'standard', description: ''}
 ]
 CATEGORIES = [
-  {name: 'On Road', configurator: true, bike: true, description: ''},
   {name: 'Off Road', configurator: true, bike: true, description: ''},
+  {name: 'On Road', configurator: true, bike: true, description: ''},
   {name: 'Hybrid',  configurator: true, bike: true, description: ''},
-  {name: 'Vêtements Femme', configurator: true, clothing: true,   description: ''},
-  {name: 'Vêtements Homme', configurator: true, clothing: true, description: ''},
+  {name: 'Homme', configurator: true, clothing: true,   description: ''},
+  {name: 'Femme', configurator: true, clothing: true, description: ''},
   {name: 'Accessoires', description: ''}
 ]
 PHOTO_PATH='app/assets/images/'
