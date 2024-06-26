@@ -5,7 +5,7 @@ Rails.application.configure do
   
   # MAILER
   config.action_mailer.perform_deliveries = ENV['MAIL_DELIVERY']=='true' ? true : false
-  config.action_mailer.default_url_options = { host: ENV['DEV_HOST'] }
+  config.action_mailer.default_url_options = { host: ENV['DEV_HOST'] || 'localhost:3000' }
   # In the development environment your application's code is reloaded any time
   # it changes. This slows down response time but is perfect for development
   # since you don't have to restart the web server when you make code changes.
@@ -71,7 +71,7 @@ Rails.application.configure do
 
   # Raise error when a before_action's only/except options reference missing actions
   config.action_controller.raise_on_missing_callback_actions = true
-  Rails.application.routes.default_url_options[:host] = ENV['DEV_HOST']
+   Rails.application.routes.default_url_options[:host] = ENV['ENV_HOST'] || 'localhost:3000'
 
 
 end
