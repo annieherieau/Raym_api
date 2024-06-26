@@ -74,7 +74,10 @@ end
 def create_categories
   CATEGORIES.each do |category|
     Category.create!(
-      name: category[:name]
+      name: category[:name],
+      configurator: category[:configurator] || false,
+      bike: category[:bike] || false,
+      clothing: category[:clothing] || false,
     )
   end
   puts("#{CATEGORIES.length} Categories créées")
