@@ -4,7 +4,7 @@ Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
   
   # MAILER
-  config.action_mailer.perform_deliveries = true
+  config.action_mailer.perform_deliveries = ENV['MAIL_DELIVERY']=='true' ? true : false
   config.action_mailer.default_url_options = { host: ENV['DEV_HOST'] }
   # In the development environment your application's code is reloaded any time
   # it changes. This slows down response time but is perfect for development

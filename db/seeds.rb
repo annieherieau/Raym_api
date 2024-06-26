@@ -127,7 +127,7 @@ reset_db
 create_categories()
 create_colors()
 create_products()
-# super_admin()
-# create_users(5)
-# create_orders(5)
+super_admin()
+create_users(5)
+create_orders(5)
 

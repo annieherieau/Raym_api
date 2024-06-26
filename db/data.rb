@@ -1,8 +1,8 @@
 COLORS = [
-  {name: 'Beige', collection: 'RAYM Edition Pro Rider YR', description: ''},
-  {name: 'Jaune', collection: 'RAYM Edition Corsica', description: ''},
-  {name: 'Rose', collection: 'RAYM Edition Render', description: ''},
-  {name: 'Gris', collection: 'RAYM Edition Lotus', description: ''},
+  {name: 'Beige', collection: 'Edition Pro Rider YR', description: ''},
+  {name: 'Jaune', collection: 'Edition Corsica', description: ''},
+  {name: 'Rose', collection: 'Edition Render', description: ''},
+  {name: 'Gris', collection: 'Edition Lotus', description: ''},
   {name: 'standard', collection: 'standard', description: ''}
 ]
 CATEGORIES = [
