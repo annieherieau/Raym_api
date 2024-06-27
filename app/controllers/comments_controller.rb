@@ -18,6 +18,14 @@ class CommentsController < ApplicationController
   # POST /products/:product_id/comments
   def create
     @product = Product.find(params[:product_id])
+
+    # Vérifier si l'utilisateur a déjà commenté ce produit
+    existing_comment = @product.comments.find_by(user_id: current_user.id)
+    if existing_comment
+      render json: { error: "You have already commented on this product" }, status: :forbidden
+      return
+    end
+
     @comment = @product.comments.build(comment_params)
     @comment.user = current_user
 
