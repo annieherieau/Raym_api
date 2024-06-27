@@ -1,5 +1,8 @@
 class User < ApplicationRecord
   include Devise::JWT::RevocationStrategies::JTIMatcher
+  attr_accessor :current_password # Create a virtual attribute
+
+  validates :current_password, presence: true, on: :update
   has_many :comments, dependent: :destroy
 
   # Include default devise modules. Others available are:
