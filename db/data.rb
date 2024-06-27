@@ -30,6 +30,7 @@ PRODUCTS = [
   {name: 'Overcharge', price: 3799, category:'Hybrid', color:'Jaune', photo: 'Hybrid-Malo.png'},
   {name: 'Overcharge', price: 3799, category:'Hybrid', color:'Gris', photo: 'Hybrid-Robena.png'},
 
-  {name: 'Tenue Homme', price: 397, category:'Homme', color:'standard', photo: 'th.png'},
-  {name: 'Tenue Femme', price: 367, category:'Femme', color:'standard', photo: 'tf.png'}
+  {name: 'Tenue Homme', price: 397, category:'Homme', color:'standard', photo: 'tf.png'},
+  {name: 'Tenue Femme', price: 397, category:'Femme', color:'Beige', photo: 'tf_Raym.png'},
+  {name: 'Tenue Femme', price: 367, category:'Femme', color:'Rose', photo: 'tf_Annie.png'}
 ]
