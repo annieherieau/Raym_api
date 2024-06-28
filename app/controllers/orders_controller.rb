@@ -51,7 +51,7 @@ class OrdersController < ApplicationController
 
     def order_with_details(order)
       items = order.cart_items.map do |item|
-        item.as_json.merge(product: item.product)
+        item.as_json.merge(product: product_with_details(item.product))
       end
       order.as_json.merge(
         amount: order.amount,
