@@ -10,7 +10,7 @@ class CategoriesController < ApplicationController
       Category.where(configurator: true).each do |category|
         products = category.products.map do |product|
           product[:name] = "#{product.name} - #{product.color.collection}"
-          product.as_json.merge(image: product.photo_url)
+          product.as_json.merge(image: product.photo_url, color: product.color, category: product.category)
        end
        type = {bike: category.bike, clothing: category.clothing}
         @categories[category.name] = {type: type, products: products}
