@@ -8,7 +8,7 @@
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
 require 'faker'
-Faker::Config.locale='fr'
+Faker::Config.locale = 'fr'
 Faker::UniqueGenerator.clear
 require_relative './data.rb'
 
@@ -33,14 +33,15 @@ def reset_db
 
   puts('drop and reset all tables')
 end
-def boolean_ratio(percent=50)
-  ratio = percent.to_f/100
+
+def boolean_ratio(percent = 50)
+  ratio = percent.to_f / 100
   Faker::Boolean.boolean(true_ratio: ratio)
 end
 
 def super_admin
   User.create!(
-  email: ENV['ADMIN_EMAIL'],
+    email: ENV['ADMIN_EMAIL'],
     password: ENV['ADMIN_PASSWORD'],
     admin: true
   )
@@ -50,13 +51,12 @@ end
 def create_users(number)
   number.times do |i|
     user = User.create!(
-      # email: Faker::Internet.unique.email,
-      email: "user#{i+1}@az.az",
+      email: "user#{i + 1}@az.az",
       password: '123456',
       first_name: Faker::Name.first_name,
       last_name: Faker::Name.last_name
     )
-    create_cart_items(Faker::Number.between(from: 0, to: 4))
+    create_cart_items(Faker::Number.between(from: 0, to: 4), user)
   end
   puts("#{number} Users créés avec panier")
 end
@@ -93,22 +93,35 @@ def create_products
       color: Color.find_by(name: product[:color])
     )
     # photo
-    new_product.photo.attach(io: File.open(PHOTO_PATH+product[:photo]), filename: product[:photo])
+    new_product.photo.attach(io: File.open(PHOTO_PATH + product[:photo]), filename: product[:photo])
   end
   puts "#{PRODUCTS.length} Products créés"
 end
 
-def create_cart_items(number, order=nil)
-  cart = order ? nil : User.all.sample.cart
+def create_comments
+  Product.all.each do |product|
+    3.times do
+      Comment.create!(
+        user: User.all.sample,
+        product: product,
+        content: Faker::Lorem.sentence,
+        rating: Faker::Number.between(from: 4, to: 5)
+      )
+    end
+  end
+  puts "Commentaires créés pour chaque produit"
+end
+
+def create_cart_items(number, user)
+  cart = user.cart
   number.times do |i|
     CartItem.create!(
       cart: cart,
-      order: order,
       product: Product.all.sample,
       quantity: Faker::Number.between(from: 1, to: 3)
     )
   end
-  puts "#{number} Cart_items ajouté dans #{order ? 'l\'order' : 'le panier'}"
+  puts "#{number} Cart_items ajouté dans le panier de l'utilisateur"
 end
 
 def create_orders(number)
@@ -117,7 +130,7 @@ def create_orders(number)
       user: User.all.sample,
       paid: boolean_ratio
     )
-    create_cart_items(Faker::Number.between(from: 1, to: 4), order)
+    create_cart_items(Faker::Number.between(from: 1, to: 4), order.user)
   end
   puts "#{number} Orders créés"
 end
@@ -126,8 +139,8 @@ end
 reset_db
 create_categories()
 create_colors()
-create_products()
 super_admin()
+create_products()
 create_users(5)
+create_comments()
 create_orders(5)
-
