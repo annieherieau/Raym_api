@@ -1,7 +1,6 @@
 class CommentsController < ApplicationController
   before_action :set_comment, only: [:show, :update, :destroy]
   before_action :authenticate_user!, only: [:create, :update, :destroy]
-  before_action :authenticate_admin!, only: [:destroy]
 
   # GET /comments
   def index
@@ -47,8 +46,12 @@ class CommentsController < ApplicationController
 
   # DELETE /comments/:id
   def destroy
-    @comment.destroy
-    head :no_content
+    if current_user == @comment.user || current_user.admin?
+      @comment.destroy
+      head :no_content
+    else
+      render json: { error: 'You are not authorized to delete this comment' }, status: :forbidden
+    end
   end
 
   private
