@@ -30,9 +30,10 @@ PRODUCTS = [
   {name: 'Overcharge', price: 3799, category:'Hybrid', color:'Jaune', photo: 'Hybrid-Malo.png'},
   {name: 'Overcharge', price: 3799, category:'Hybrid', color:'Gris', photo: 'Hybrid-Robena.png'},
 
-  {name: 'Tenue Homme', price: 397, category:'Homme', color:'standard', photo: 'tf.png'},
+  {name: 'Tenue Homme', price: 397, category:'Homme', color:'standard', photo: 'th.png'},
   {name: 'Tenue Femme', price: 397, category:'Femme', color:'Beige', photo: 'tf_Raym.png'},
   {name: 'Tenue Femme', price: 367, category:'Femme', color:'Rose', photo: 'tf_Annie.png'},
+  {name: 'Tenue Femme', price: 367, category:'Femme', color:'Jaune', photo: 'tf.png'},
 
   { name: 'Casquette Raym Noire édition collector', price: 29, category: 'Accessoires', color: 'standard', photo: '/Caps/casquette-cycliste-nautica.png' },
   { name: 'Casquette Raym edition Corsica', price: 25, category: 'Accessoires', color: 'standard', photo: '/Caps/casquette-de-baseball-poc-pour-hommes-poc-youth-trucker.png' },
