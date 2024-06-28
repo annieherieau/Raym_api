@@ -56,7 +56,7 @@ def create_users(number)
       first_name: Faker::Name.first_name,
       last_name: Faker::Name.last_name
     )
-    create_cart_items(Faker::Number.between(from: 0, to: 4), user)
+    create_cart_items(Faker::Number.between(from: 0, to: 4), user.cart)
   end
   puts("#{number} Users créés avec panier")
 end
@@ -105,15 +105,14 @@ def create_comments
         user: User.all.sample,
         product: product,
         content: Faker::Lorem.sentence,
-        rating: Faker::Number.between(from: 4, to: 5)
+        rating: Faker::Number.between(from: 1, to: 5)
       )
     end
   end
   puts "Commentaires créés pour chaque produit"
 end
 
-def create_cart_items(number, user)
-  cart = user.cart
+def create_cart_items(number, cart)
   number.times do |i|
     CartItem.create!(
       cart: cart,
@@ -121,7 +120,18 @@ def create_cart_items(number, user)
       quantity: Faker::Number.between(from: 1, to: 3)
     )
   end
-  puts "#{number} Cart_items ajouté dans le panier de l'utilisateur"
+  puts "#{number} Cart_items ajouté dans le panier"
+end
+
+def create_order_items(number, order)
+  number.times do |i|
+    CartItem.create!(
+      order: order,
+      product: Product.all.sample,
+      quantity: Faker::Number.between(from: 1, to: 3)
+    )
+  end
+  puts "#{number} Order_items ajouté dans l'ordre"
 end
 
 def create_orders(number)
@@ -130,7 +140,7 @@ def create_orders(number)
       user: User.all.sample,
       paid: boolean_ratio
     )
-    create_cart_items(Faker::Number.between(from: 1, to: 4), order.user)
+    create_order_items(Faker::Number.between(from: 1, to: 4), order)
   end
   puts "#{number} Orders créés"
 end
