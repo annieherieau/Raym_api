@@ -15,4 +15,11 @@ class ApplicationController < ActionController::API
     end
   end
   
+  def product_with_details(product)
+    product.as_json.merge(
+      category: product.category,
+      color:  product.color,
+      photo_url: product.photo_url
+    )
+  end
 end

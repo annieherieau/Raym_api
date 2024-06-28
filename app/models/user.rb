@@ -1,5 +1,5 @@
 class User < ApplicationRecord
-  include Devise::JWT::RevocationStrategies::JTIMatcher
+  include Devise::JWT::RevocationStrategies::JTIMatcher # Create a virtual attribute
   has_many :comments, dependent: :destroy
 
   # Include default devise modules. Others available are:

@@ -1,5 +1,3 @@
-# app/controllers/products_controller.rb
-
 class ProductsController < ApplicationController
   before_action :set_product, only: [:show, :update, :destroy]
   before_action :authenticate_admin!, only: [:create, :update, :destroy]
@@ -7,17 +5,21 @@ class ProductsController < ApplicationController
   # GET /products
   def index
     if params[:category].present?
-      @products = Product.where(category: params[:category])
+      @products = Product.where(category: params[:category]).map do |product|
+        product_with_details(product)
+      end
     else
-      @products = Product.all
+      @products = Product.all.map do |product|
+        product_with_details(product)
+      end
     end
 
-    render json: @products.as_json(methods: :photo_url)
+    render json: @products, status: :ok
   end
 
   # GET /products/:id
   def show
-    render json: @product.as_json(methods: :photo_url)
+    render json: product_with_details(@product)
   end
 
   # POST /products
@@ -25,7 +27,7 @@ class ProductsController < ApplicationController
     @product = Product.new(product_params)
 
     if @product.save
-      render json: @product.as_json(methods: :photo_url), status: :created
+      render json: product_with_details(@product), status: :created
     else
       render json: @product.errors, status: :unprocessable_entity
     end
@@ -34,7 +36,7 @@ class ProductsController < ApplicationController
   # PATCH/PUT /products/:id
   def update
     if @product.update(product_params)
-      render json: @product.as_json(methods: :photo_url)
+      render json: product_with_details(@product), status: :ok
     else
       render json: @product.errors, status: :unprocessable_entity
     end
@@ -43,7 +45,7 @@ class ProductsController < ApplicationController
   # DELETE /products/:id
   def destroy
     if @product.destroy
-      render json: { message: "Product deleted" }
+      render json: { message: "Product deleted" }, status: :ok
     else
       render json: @product.errors, status: :unprocessable_entity
     end
@@ -58,6 +60,6 @@ class ProductsController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def product_params
-    params.require(:product).permit(:name, :description, :price, :photo, :category)
+    params.require(:product).permit(:name, :description, :price, :photo,  :category_id, :color_id)
   end
 end

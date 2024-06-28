@@ -60,4 +60,5 @@ Rails.application.routes.draw do
 
   # Définir la route racine
   # root "products#index"
+
 end
