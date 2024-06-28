@@ -6,10 +6,8 @@ class CartsController < ApplicationController
 
   # GET cart/
   def show
-    # @cart_items = @cart.cart_items.order('created_at').includes(:product)
     @cart_items = @cart.cart_items.order('created_at')
     @cart_items_with_details = @cart_items.map do |item|
-      # item
       item.as_json.merge(product: product_with_details(item.product))
     end
     render json: {amount: @cart.amount, items: @cart_items_with_details}
@@ -27,7 +25,6 @@ class CartsController < ApplicationController
     else
       render json: @cart.errors, status: :unprocessable_entity
     end
-
   end
 
   private
