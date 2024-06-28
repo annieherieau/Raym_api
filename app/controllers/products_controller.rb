@@ -58,14 +58,6 @@ class ProductsController < ApplicationController
     @product = Product.find(params[:id])
   end
 
-  def product_with_details(product)
-    product.as_json.merge(
-      category: product.category,
-      color:  product.color,
-      photo_url: product.photo_url
-    )
-  end
-
   # Only allow a list of trusted parameters through.
   def product_params
     params.require(:product).permit(:name, :description, :price, :photo,  :category_id, :color_id)
