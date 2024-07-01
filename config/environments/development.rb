@@ -35,14 +35,6 @@ Rails.application.configure do
 
   # Store uploaded files on the local file system (see config/storage.yml for options).
   config.active_storage.service = :local
-  config.active_storage.service_configurations = {
-    local: {
-      service: "Disk",
-      root: Rails.root.join("storage"),
-      public: true,
-      url: "/rails/active_storage"
-    }
-  }
 
   # Don't care if the mailer can't send.
   config.action_mailer.raise_delivery_errors = true
