@@ -19,8 +19,6 @@ class OrdersController < ApplicationController
 
   # GET /orders/1
   def show
-    # @cart_items = @order.cart_items.includes(:product)
-    # render json: {order: @order, amount: @order.amount, user_email: @order.user.email, items: @cart_items.as_json(include: :product)}, status: :ok
     render json: order_with_details(@order), status: :ok
   end
 
@@ -44,7 +42,7 @@ class OrdersController < ApplicationController
       if (@order.user != current_user && !is_admin?)
         render json: {
           status: 401,
-         error: "Unauthorised." 
+         error: "Non autorisé." 
         }, status: :unauthorized
       end
     end
