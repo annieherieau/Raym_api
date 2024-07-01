@@ -32,10 +32,10 @@ class CartsController < ApplicationController
   def set_cart
     if current_user
       @cart = current_user.cart || current_user.create_cart
-      puts "Cart set successfully for user #{current_user.id}"
+      puts "Panier défini avec succès pour l'utilisateur #{current_user.id}"
     else
-      puts "No current user found"
-      render json: { error: 'User not authenticated' }, status: :unauthorized
+      puts "Aucun utilisateur actuel trouvé"
+      render json: { error: 'Utilisateur non authentifié' }, status: :unauthorized
     end
   end
 

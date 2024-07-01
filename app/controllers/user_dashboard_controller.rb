@@ -6,13 +6,13 @@ class UserDashboardController < ApplicationController
     if current_user
       render json: {
         status: {code: 200,
-        message: "If you see this, you're in!"},
+        message: "Si vous voyez cela, vous y êtes !"},
         user: current_user
       }, status: :ok
     else
       render json: {
         status: {code: 404,
-        message: "User Not Found"}
+        message: "Utilisateur non trouvé"}
       }, status: :not_found
     end
   end

@@ -21,7 +21,7 @@ class CommentsController < ApplicationController
     # Vérifier si l'utilisateur a déjà commenté ce produit
     existing_comment = @product.comments.find_by(user_id: current_user.id)
     if existing_comment
-      render json: { error: "You have already commented on this product" }, status: :forbidden
+      render json: { error: "Vous avez déjà commenté ce produit" }, status: :forbidden
       return
     end
 
@@ -50,7 +50,7 @@ class CommentsController < ApplicationController
       @comment.destroy
       head :no_content
     else
-      render json: { error: 'You are not authorized to delete this comment' }, status: :forbidden
+      render json: { error: "Vous n'êtes pas autorisé à supprimer ce commentaire"}, status: :forbidden
     end
   end
 

@@ -17,9 +17,9 @@ class UsersController < ApplicationController
     def destroy
       user = User.find(params[:id])
       if user.destroy
-        render json: { message: 'User deleted successfully' }, status: :ok
+        render json: { message: 'Utilisateur supprimé avec succès' }, status: :ok
       else
-        render json: { error: 'Failed to delete user' }, status: :unprocessable_entity
+        render json: { error: "Échec de la suppression de l'utilisateur" }, status: :unprocessable_entity
       end
     end
 end

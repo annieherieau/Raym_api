@@ -30,7 +30,7 @@ class CartItemsController < ApplicationController
         end
       end
     else
-      render json: { error: 'Product not found' }, status: :not_found
+      render json: { error: 'Produuit non trouvé' }, status: :not_found
     end
   end
   
