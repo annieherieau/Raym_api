@@ -60,5 +60,7 @@ Rails.application.routes.draw do
 
   # Définir la route racine
   # root "products#index"
+  get "/robots.txt", to: redirect("/robots.txt")
+
 
 end

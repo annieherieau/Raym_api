@@ -3,7 +3,7 @@ COLORS = [
   {name: 'Jaune', collection: 'Edition Corsica', description: ''},
   {name: 'Rose', collection: 'Edition Render', description: ''},
   {name: 'Gris', collection: 'Edition Lotus', description: ''},
-  {name: 'standard', collection: '', description: ''}
+  {name: 'standard', collection: 'Edition Classique', description: ''}
 ]
 CATEGORIES = [
   {name: 'Off Road', configurator: true, bike: true, description: ''},
