@@ -60,3 +60,11 @@ gem "open-uri", "~> 0.4.1"
 gem "cloudinary", "~> 2.1"
 
 gem "sitemap_generator", "~> 6.3"
+
+gem "rspec", "~> 3.13"
+
+gem "rspec-rails", "~> 6.1"
+
+gem "factory_bot_rails", "~> 6.4"
+
+gem "shoulda-matchers", "~> 6.2"

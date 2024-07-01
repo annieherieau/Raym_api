@@ -6,6 +6,9 @@ class Product < ApplicationRecord
     belongs_to :color
     belongs_to :category
 
+    validates :name, presence: true
+    validates :price, presence: true
+
     def photo_url
         Rails.application.routes.url_helpers.url_for(photo) if photo.attached?
     end
