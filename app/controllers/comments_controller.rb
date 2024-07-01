@@ -6,7 +6,7 @@ class CommentsController < ApplicationController
   def index
     @product = Product.find(params[:product_id])
     @comments = @product.comments.includes(:user)
-    render json: @comments.as_json(include: { user: { only: [:email] } })
+    render json: @comments.as_json(include: { user: { only: [:first_name] } })
   end
 
   # GET /comments/:id
