@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CartItem < ApplicationRecord
   belongs_to :product
   belongs_to :cart, optional: true
@@ -9,7 +11,6 @@ class CartItem < ApplicationRecord
   before_update :update_price
 
   def update_price
-    self.price = self.quantity * self.product.price
+    self.price = quantity * product.price
   end
-
 end

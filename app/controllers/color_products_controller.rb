@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 class ColorProductsController < ApplicationController
-  before_action :set_color_product, only: %i[ show update destroy ]
+  before_action :set_color_product, only: %i[show update destroy]
 
   # GET /color_products
   def index
@@ -39,13 +41,14 @@ class ColorProductsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_color_product
-      @color_product = ColorProduct.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def color_product_params
-      params.require(:color_product).permit(:color_id, :product_id)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_color_product
+    @color_product = ColorProduct.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def color_product_params
+    params.require(:color_product).permit(:color_id, :product_id)
+  end
 end

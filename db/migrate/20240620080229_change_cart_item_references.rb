@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ChangeCartItemReferences < ActiveRecord::Migration[7.1]
   def change
     # remove_reference :cart_items, :cart, foreign_key: true, index: false

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # This file should ensure the existence of records required to run the application in every environment (production,
 # development, test). The code here should be idempotent so that it can be executed at any point in every environment.
 # The data can then be loaded with the bin/rails db:seed command (or created alongside the database with db:setup).
@@ -10,7 +12,7 @@
 require 'faker'
 Faker::Config.locale = 'fr'
 Faker::UniqueGenerator.clear
-require_relative './data.rb'
+require_relative './data'
 
 # Supprimer toutes les données existantes
 def reset_db
@@ -22,7 +24,7 @@ def reset_db
   Color.destroy_all
   Order.destroy_all
   Comment.destroy_all
-  ActiveStorage::Attachment.all.each { |attachment| attachment.purge }
+  ActiveStorage::Attachment.all.each(&:purge)
   # reset table sequence
   ActiveRecord::Base.connection.tables.each do |t|
     # postgreSql
@@ -77,7 +79,7 @@ def create_categories
       name: category[:name],
       configurator: category[:configurator] || false,
       bike: category[:bike] || false,
-      clothing: category[:clothing] || false,
+      clothing: category[:clothing] || false
     )
   end
   puts("#{CATEGORIES.length} Categories créées")
@@ -99,24 +101,24 @@ def create_products
   puts "#{PRODUCTS.length} Products créés"
 end
 
-def create_comments()
+def create_comments
   Product.all.each do |product|
     Faker::Number.between(from: 1, to: 5).times do
       Comment.create!(
         user: User.where.not(admin: true).sample,
-        product: product,
+        product:,
         content: Faker::Lorem.sentence,
         rating: Faker::Number.between(from: 2, to: 5)
       )
     end
   end
-  puts "Commentaires créés pour chaque produit"
+  puts 'Commentaires créés pour chaque produit'
 end
 
 def create_cart_items(number, cart)
-  number.times do |i|
+  number.times do |_i|
     CartItem.create!(
-      cart: cart,
+      cart:,
       product: Product.all.sample,
       quantity: Faker::Number.between(from: 1, to: 3)
     )
@@ -125,9 +127,9 @@ def create_cart_items(number, cart)
 end
 
 def create_order_items(number, order)
-  number.times do |i|
+  number.times do |_i|
     CartItem.create!(
-      order: order,
+      order:,
       product: Product.all.sample,
       quantity: Faker::Number.between(from: 1, to: 3)
     )
@@ -136,7 +138,7 @@ def create_order_items(number, order)
 end
 
 def create_orders(number)
-  number.times do |i|
+  number.times do |_i|
     order = Order.create!(
       user: User.where.not(admin: true).sample,
       paid: true
@@ -148,10 +150,10 @@ end
 
 # PERFORM SEEDING
 reset_db
-create_categories()
-create_colors()
-super_admin()
-create_products()
+create_categories
+create_colors
+super_admin
+create_products
 create_users(20)
-create_comments()
+create_comments
 create_orders(20)

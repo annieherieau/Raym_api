@@ -1,42 +1,41 @@
 # frozen_string_literal: true
 
-class Users::RegistrationsController < Devise::RegistrationsController
-  before_action :authenticate_user!, only: %i[update]
-  before_action :set_user, only: %i[update]
+module Users
+  class RegistrationsController < Devise::RegistrationsController
+    before_action :authenticate_user!, only: %i[update]
+    before_action :set_user, only: %i[update]
 
-  respond_to :json
+    respond_to :json
 
-  # POST /users
-  def create
-    super
-  end
+    # POST /users
 
-  # PUT /users
-  def update
-    return render json: { errors: "User not found" }, status: :not_found if @user.nil?
+    # PUT /users
+    def update
+      return render json: { errors: 'User not found' }, status: :not_found if @user.nil?
 
-    unless @user.valid_password?(params[:current_password])
-      return render json: { errors: "Incorrect password" }, status: :unauthorized
+      unless @user.valid_password?(params[:current_password])
+        return render json: { errors: 'Incorrect password' }, status: :unauthorized
+      end
+
+      if @user.update(update_user_params)
+        render json: {
+          status: { code: 200, message: 'User updated successfully.' },
+          data: { user: @user }
+        }, status: :ok
+      else
+        render json: { errors: @user.errors }, status: :unprocessable_entity
+      end
     end
 
-    if @user.update(update_user_params)
-      render json: {
-        status: { code: 200, message: 'User updated successfully.' },
-        data: { user: @user }
-      }, status: :ok
-    else
-      render json: { errors: @user.errors }, status: :unprocessable_entity
+    private
+
+    def set_user
+      @token = request.headers['Authorization'].split(' ').last
+      @user = User.get_user_from_token(@token)
     end
-  end
 
-  private
-
-  def set_user
-    @token = request.headers['Authorization'].split(' ').last
-    @user = User.get_user_from_token(@token)
-  end
-
-  def update_user_params
-    params.permit(:email, :password, :password_confirmation, :first_name, :last_name)
+    def update_user_params
+      params.permit(:email, :password, :password_confirmation, :first_name, :last_name)
+    end
   end
 end

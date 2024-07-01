@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class User < ApplicationRecord
   include Devise::JWT::RevocationStrategies::JTIMatcher # Create a virtual attribute
   has_many :comments, dependent: :destroy
@@ -5,19 +7,15 @@ class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
-        :recoverable, :rememberable, :validatable,
-        :jwt_authenticatable, jwt_revocation_strategy: self
+         :recoverable, :rememberable, :validatable,
+         :jwt_authenticatable, jwt_revocation_strategy: self
 
   has_one :cart, dependent: :destroy
   has_many :orders, dependent: :destroy
   after_create :create_cart, :welcome_send
-  
-  def jwt_payload
-    super
-  end
 
   # validations
-  validates :email, presence: true, uniqueness: true 
+  validates :email, presence: true, uniqueness: true
 
   # Email de bienvenue
   def welcome_send
@@ -56,7 +54,7 @@ class User < ApplicationRecord
   def self.get_user_from_token(token)
     # décode le token
     jwt_payload = JWT.decode(token,
-    Rails.application.credentials.fetch(:secret_key_base)).first
+                             Rails.application.credentials.fetch(:secret_key_base)).first
     # détermine l'id du user
     user_id = jwt_payload['sub']
     User.find(user_id.to_s)

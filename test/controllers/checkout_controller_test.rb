@@ -1,17 +1,19 @@
-require "test_helper"
+# frozen_string_literal: true
+
+require 'test_helper'
 
 class CheckoutControllerTest < ActionDispatch::IntegrationTest
-  test "should get create" do
+  test 'should get create' do
     get checkout_create_url
     assert_response :success
   end
 
-  test "should get success" do
+  test 'should get success' do
     get checkout_success_url
     assert_response :success
   end
 
-  test "should get cancel" do
+  test 'should get cancel' do
     get checkout_cancel_url
     assert_response :success
   end

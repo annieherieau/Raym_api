@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CartsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_cart
@@ -10,7 +12,7 @@ class CartsController < ApplicationController
     @cart_items_with_details = @cart_items.map do |item|
       item.as_json.merge(product: product_with_details(item.product))
     end
-    render json: {amount: @cart.amount, items: @cart_items_with_details}
+    render json: { amount: @cart.amount, items: @cart_items_with_details }
   end
 
   # DELETE cart/clear
@@ -18,10 +20,10 @@ class CartsController < ApplicationController
     case @action
     when 'clear'
       @cart.clear
-      render json: { message: "Panier vidé" }, status: :ok
+      render json: { message: 'Panier vidé' }, status: :ok
     when 'validate'
       @cart.validate
-      render json: {order: current_user.orders.all.last,  message: "Panier validé" }, status: :ok
+      render json: { order: current_user.orders.all.last, message: 'Panier validé' }, status: :ok
     else
       render json: @cart.errors, status: :unprocessable_entity
     end
@@ -34,7 +36,7 @@ class CartsController < ApplicationController
       @cart = current_user.cart || current_user.create_cart
       puts "Cart set successfully for user #{current_user.id}"
     else
-      puts "No current user found"
+      puts 'No current user found'
       render json: { error: 'User not authenticated' }, status: :unauthorized
     end
   end

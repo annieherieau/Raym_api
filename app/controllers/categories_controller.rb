@@ -1,22 +1,24 @@
+# frozen_string_literal: true
+
 class CategoriesController < ApplicationController
-  before_action :set_category, only: %i[ show update destroy ]
-  before_action :authenticate_admin!, only: [:create, :update, :destroy]
+  before_action :set_category, only: %i[show update destroy]
+  before_action :authenticate_admin!, only: %i[create update destroy]
 
   # GET /categories  -- pour le configurateur /categories?display=configurator
   def index
     case params[:display]
-    when "configurator"
-      @categories = Hash.new
+    when 'configurator'
+      @categories = {}
       Category.where(configurator: true).each do |category|
         products = category.products.map do |product|
           product[:name] = "#{product.name} - #{product.color.collection}"
           product_with_details(product)
-       end
-       type = {bike: category.bike, clothing: category.clothing}
-        @categories[category.name] = {type: type, products: products}
+        end
+        type = { bike: category.bike, clothing: category.clothing }
+        @categories[category.name] = { type:, products: }
       end
-    when "shop"
-      
+    when 'shop'
+
     else
       @categories = Category.all
     end
@@ -52,20 +54,21 @@ class CategoriesController < ApplicationController
   # DELETE /categories/1
   def destroy
     if @category.destroy!
-      render json: { message: "Category deleted" }
+      render json: { message: 'Category deleted' }
     else
       render json: @category.errors, status: :unprocessable_entity
     end
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_category
-      @category = Category.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def category_params
-      params.require(:category).permit(:name, :configurator, :bike, :clothing)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_category
+    @category = Category.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def category_params
+    params.require(:category).permit(:name, :configurator, :bike, :clothing)
+  end
 end

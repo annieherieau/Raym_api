@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ApplicationMailer < ActionMailer::Base
   default from: ENV['MAILJET_DEFAULT_FROM']
   layout 'mailer'
@@ -5,9 +7,9 @@ class ApplicationMailer < ActionMailer::Base
   # url de l'appli (FRONT)
   def application_url
     if Rails.env.production?
-      ENV['PROD_HOST'] || 'localhost:3000' 
+      ENV['PROD_HOST'] || 'localhost:3000'
     else
-      ENV['DEV_HOST'] || 'localhost:3000' 
+      ENV['DEV_HOST'] || 'localhost:3000'
     end
   end
 end

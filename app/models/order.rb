@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Order < ApplicationRecord
   belongs_to :user
   has_many :cart_items, dependent: :destroy
@@ -6,7 +8,7 @@ class Order < ApplicationRecord
   # calcult du total
   def amount
     amount = 0
-    self.cart_items.each do |cart_item|
+    cart_items.each do |cart_item|
       amount += cart_item.price
     end
     amount
@@ -15,12 +17,12 @@ class Order < ApplicationRecord
   # Annulation de l'order: les items rebasculent dans le panier
   def cancel
     # transferer les cart_items sur l'order
-    self.cart_items.each do |item|
-        item.update(
+    cart_items.each do |item|
+      item.update(
         order_id: nil,
-        cart_id: self.user.cart.id
+        cart_id: user.cart.id
       )
-      end
+    end
   end
 
   def send_order_emails

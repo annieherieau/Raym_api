@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CartItemsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_cart
@@ -5,13 +7,14 @@ class CartItemsController < ApplicationController
   def show
     @cart_items = @cart.cart_items.order('created_at').includes(:product)
   end
+
   # POST /cart_items
   def create
     @product = Product.find_by(id: params[:product_id].to_i)
-    
+
     if @product
       existing_cart_item = @cart.cart_items.find_by(product_id: @product.id)
-      
+
       if existing_cart_item
         # Si l'article existe déjà, mettre à jour la quantité
         new_quantity = existing_cart_item.quantity + 1
@@ -33,7 +36,7 @@ class CartItemsController < ApplicationController
       render json: { error: 'Product not found' }, status: :not_found
     end
   end
-  
+
   # PUT ou PATCH /cart_items/:id
   def update
     cart_item = @cart.cart_items.find(params[:id])

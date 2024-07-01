@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 Rails.application.routes.draw do
   resources :color_products
   resources :categories
@@ -13,7 +15,7 @@ Rails.application.routes.draw do
   end
 
   # Ressources pour les commentaires
-  resources :comments, only: [:index, :show]
+  resources :comments, only: %i[index show]
 
   # Route pour l'admin dashboard
   get 'admin/:ressource', to: 'admin_dashboard#index'
@@ -22,20 +24,20 @@ Rails.application.routes.draw do
   get 'my_profile', to: 'user_dashboard#show'
 
   # Route pour le formulaire de contact
-  post 'contact',  to: 'static_pages#send_contact_email'
+  post 'contact', to: 'static_pages#send_contact_email'
 
   # Ressources pour les produits, incluant les commentaires imbriqués
   resources :products do
-    resources :comments, only: [:create, :update, :destroy, :index]
+    resources :comments, only: %i[create update destroy index]
   end
 
-  resources :comments, only: [:index, :show, :update, :destroy]
+  resources :comments, only: %i[index show update destroy]
 
   # Ressource pour le panier
-  resource :cart, only: [:show, :update]
+  resource :cart, only: %i[show update]
 
   # Ressources pour les éléments du panier
-  resources :cart_items, only: [:create, :update, :destroy]
+  resources :cart_items, only: %i[create update destroy]
 
   # Routes pour Devise avec des contrôleurs personnalisés
   devise_for :users, controllers: {
@@ -54,13 +56,11 @@ Rails.application.routes.draw do
   end
 
   # Route pour vérifier l'état de santé de l'application
-  get "up" => "rails/health#show", as: :rails_health_check
+  get 'up' => 'rails/health#show', as: :rails_health_check
   get 'current_user', to: 'users#current'
   get 'admin_check', to: 'users#check_admin'
 
   # Définir la route racine
   # root "products#index"
-  get "/robots.txt", to: redirect("/robots.txt")
-
-
+  get '/robots.txt', to: redirect('/robots.txt')
 end

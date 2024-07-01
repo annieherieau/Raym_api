@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # config/sitemap.rb
 
 require 'sitemap_generator'

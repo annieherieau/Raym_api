@@ -1,35 +1,39 @@
-require "test_helper"
+# frozen_string_literal: true
+
+require 'test_helper'
 
 class CommentsControllerTest < ActionDispatch::IntegrationTest
   setup do
     @comment = comments(:one)
   end
 
-  test "should get index" do
+  test 'should get index' do
     get comments_url, as: :json
     assert_response :success
   end
 
-  test "should create comment" do
-    assert_difference("Comment.count") do
-      post comments_url, params: { comment: { content: @comment.content, product_id: @comment.product_id, rating: @comment.rating, user_id: @comment.user_id } }, as: :json
+  test 'should create comment' do
+    assert_difference('Comment.count') do
+      post comments_url,
+           params: { comment: { content: @comment.content, product_id: @comment.product_id, rating: @comment.rating, user_id: @comment.user_id } }, as: :json
     end
 
     assert_response :created
   end
 
-  test "should show comment" do
+  test 'should show comment' do
     get comment_url(@comment), as: :json
     assert_response :success
   end
 
-  test "should update comment" do
-    patch comment_url(@comment), params: { comment: { content: @comment.content, product_id: @comment.product_id, rating: @comment.rating, user_id: @comment.user_id } }, as: :json
+  test 'should update comment' do
+    patch comment_url(@comment),
+          params: { comment: { content: @comment.content, product_id: @comment.product_id, rating: @comment.rating, user_id: @comment.user_id } }, as: :json
     assert_response :success
   end
 
-  test "should destroy comment" do
-    assert_difference("Comment.count", -1) do
+  test 'should destroy comment' do
+    assert_difference('Comment.count', -1) do
       delete comment_url(@comment), as: :json
     end
 

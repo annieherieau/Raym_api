@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 class CommentsController < ApplicationController
-  before_action :set_comment, only: [:show, :update, :destroy]
-  before_action :authenticate_user!, only: [:create, :update, :destroy]
+  before_action :set_comment, only: %i[show update destroy]
+  before_action :authenticate_user!, only: %i[create update destroy]
 
   # GET /comments
   def index
@@ -21,7 +23,7 @@ class CommentsController < ApplicationController
     # Vérifier si l'utilisateur a déjà commenté ce produit
     existing_comment = @product.comments.find_by(user_id: current_user.id)
     if existing_comment
-      render json: { error: "You have already commented on this product" }, status: :forbidden
+      render json: { error: 'You have already commented on this product' }, status: :forbidden
       return
     end
 
