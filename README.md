@@ -15,21 +15,19 @@ Clone repository
 
 ```bash
 git clone [repo]
-```
-
-Install dépendencies
-
-```bash
 cd [app_name]
-bundle install
 ```
 
-Database
+Built command
 
 ```bash
+bundle install
+bundle exec rake assets:precompile
+bundle exec rake assets:clean
 rails db:create
 rails db:migrate
 rails db:seed
+rake sitemap:refresh
 ```
 
 Launch server
@@ -45,6 +43,8 @@ To run this project, you will need to add the following environment variables to
 - url de l'application front
   - DEV_HOST
   - PROD_HOST
+- url de l'application back
+  - BACK_HOST
 - API Stripe
   - STRIPE_PUBLISHABLE_KEY
   - STRIPE_SECRET_KEY
@@ -53,5 +53,6 @@ To run this project, you will need to add the following environment variables to
   - MAILJET_PWD
   - MAILJET_DEFAULT_FROM
   - MAILJET_SENDER_DOMAIN
+  - MAIL_DELIVERY (boolean)
 
 **La team RAYM** : [Robena](https://github.com/Robe-Ras), [Annie](https://github.com/annieherieau), [Yann](https://github.com/YannRZG) et [Malo](https://github.com/Korblen)
