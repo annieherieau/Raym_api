@@ -54,6 +54,7 @@ gem "rubocop", "~> 1.64"
 gem "dotenv", "~> 3.1"
 
 gem "stripe", "~> 11.7"
+gem "cloudinary", "~> 2.1"
 
 gem "open-uri", "~> 0.4.1"
 
