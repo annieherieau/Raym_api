@@ -34,7 +34,7 @@ class CategoriesController < ApplicationController
     @category = Category.new(category_params)
 
     if @category.save
-      render json: @category, status: :created, location: @category, status: :ok
+      render json: @category, status: :created, location: @category
     else
       render json: @category.errors, status: :unprocessable_entity
     end
@@ -52,7 +52,7 @@ class CategoriesController < ApplicationController
   # DELETE /categories/1
   def destroy
     if @category.destroy!
-      render json: { message: "Category deleted" }
+      render json: { message: "Catégorie supprimée" }
     else
       render json: @category.errors, status: :unprocessable_entity
     end

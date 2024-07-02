@@ -7,7 +7,7 @@ class Users::PasswordsController < Devise::PasswordsController
     if params[:email].blank?
       render json: {
         status: { code: 422,
-                  message: 'Email not present.' }
+                  message: 'Email manquant.' }
       }, status: :unprocessable_entity
     end
     @user = User.find_by(email: params[:email].downcase)
@@ -22,18 +22,18 @@ class Users::PasswordsController < Devise::PasswordsController
       if @user.send_reset_password_instructions(@token)
         render json: {
           status: { code: 200,
-                    message: 'Instruction email successfully sent. Please check your spam.' }
+                    message: "E-mail d'instructions envoyé avec succès. Veuillez vérifier vos spams." }
         }, status: :ok
       else
         render json: {
           status: { code: 418,
-                    message: 'Something gets wrong. Please try later.' }
+                    message: "Une erreur s'est produite. Merci d'essayer plus tard." }
         }, status: :ok
       end
     else
       render json: {
         status: { code: 404,
-                  message: 'Email address not found. Please check and try again.' }
+                  message: "Adresse e-mail introuvable. S'il vous plaît, vérifiez et essayez à nouveau." }
       }, status: :not_found
 
     end
@@ -46,7 +46,7 @@ class Users::PasswordsController < Devise::PasswordsController
     if @reset_password_token.blank?
       render json: {
         status: { code: 422,
-                  message: 'Reset_password_token missing in headers.' }
+                  message: 'Reset_password_token manquant dans les en-têtes.' }
       }, status: :unprocessable_entity
     end
 
@@ -56,18 +56,18 @@ class Users::PasswordsController < Devise::PasswordsController
       if @user.reset_password!(params[:password])
         render json: {
           status: { code: 200,
-                    message: 'Password successfully updated' }
+                    message: 'Mot de passe mis à jour avec succès' }
         }, status: :ok
       else
         render json: {
           status: { code: 422,
-                    message: "Password couldn't be updated successfully. #{@user.errors.full_messages}" }
+                    message: "Le mot de passe n'a pas pu être mis à jour: #{@user.errors.full_messages}" }
         }, status: :unprocessable_entity
       end
     else
       render json: {
         status: { code: 404,
-                  message: 'Link not valid or expired. Try generating a new link.' }
+                  message: "Lien non valide ou expiré. Essayez de générer un nouveau lien." }
       }, status: :not_found
     end
   end
@@ -78,12 +78,4 @@ class Users::PasswordsController < Devise::PasswordsController
     hashed = Devise.token_generator.digest(User, :reset_password_token, token)
     User.find_by(reset_password_token: hashed)
   end
-  # def after_resetting_password_path_for(resource)
-  #   super(resource)
-  # end
-
-  # The path used after sending reset password instructions
-  # def after_sending_reset_password_instructions_path_for(resource_name)
-  #   super(resource_name)
-  # end
 end

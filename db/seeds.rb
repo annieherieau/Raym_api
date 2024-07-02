@@ -87,7 +87,8 @@ def create_products
   PRODUCTS.each do |product|
     new_product = Product.create!(
       name: product[:name],
-      description: Faker::Lorem.paragraph,
+      description: Faker::Lorem.sentence(word_count: Faker::Number.between(from: 3, to: 5)),
+      long_description: Faker::Lorem.paragraph(sentence_count: Faker::Number.between(from: 15, to: 20)),
       price: product[:price],
       category: Category.find_by(name: product[:category]),
       color: Color.find_by(name: product[:color])
@@ -98,14 +99,14 @@ def create_products
   puts "#{PRODUCTS.length} Products créés"
 end
 
-def create_comments
+def create_comments()
   Product.all.each do |product|
-    3.times do
+    Faker::Number.between(from: 1, to: 5).times do
       Comment.create!(
-        user: User.all.sample,
+        user: User.where.not(admin: true).sample,
         product: product,
         content: Faker::Lorem.sentence,
-        rating: Faker::Number.between(from: 1, to: 5)
+        rating: Faker::Number.between(from: 2, to: 5)
       )
     end
   end
@@ -120,7 +121,7 @@ def create_cart_items(number, cart)
       quantity: Faker::Number.between(from: 1, to: 3)
     )
   end
-  puts "#{number} Cart_items ajouté dans le panier"
+  puts "#{number} Cart_items ajoutés dans le panier"
 end
 
 def create_order_items(number, order)
@@ -131,14 +132,14 @@ def create_order_items(number, order)
       quantity: Faker::Number.between(from: 1, to: 3)
     )
   end
-  puts "#{number} Order_items ajouté dans l'ordre"
+  puts "#{number} Order_items ajoutés dans l'order"
 end
 
 def create_orders(number)
   number.times do |i|
     order = Order.create!(
-      user: User.all.sample,
-      paid: boolean_ratio
+      user: User.where.not(admin: true).sample,
+      paid: true
     )
     create_order_items(Faker::Number.between(from: 1, to: 4), order)
   end
@@ -151,6 +152,6 @@ create_categories()
 create_colors()
 super_admin()
 create_products()
-create_users(5)
+create_users(20)
 create_comments()
-create_orders(5)
+create_orders(20)

@@ -45,7 +45,7 @@ class ProductsController < ApplicationController
   # DELETE /products/:id
   def destroy
     if @product.destroy
-      render json: { message: "Product deleted" }, status: :ok
+      render json: { message: "Produit supprimé" }, status: :ok
     else
       render json: @product.errors, status: :unprocessable_entity
     end
@@ -60,6 +60,6 @@ class ProductsController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def product_params
-    params.require(:product).permit(:name, :description, :price, :photo,  :category_id, :color_id)
+    params.require(:product).permit(:name, :description, :price, :photo,  :category_id, :color_id, :long_description)
   end
 end

@@ -59,6 +59,8 @@ Rails.application.routes.draw do
   get 'admin_check', to: 'users#check_admin'
 
   # Définir la route racine
-  # root "products#index"
+  root "products#index"
+  get "/robots.txt", to: redirect("/robots.txt")
+
 
 end

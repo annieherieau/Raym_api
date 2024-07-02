@@ -13,15 +13,15 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   # PUT /users
   def update
-    return render json: { errors: "User not found" }, status: :not_found if @user.nil?
+    return render json: { errors: "Utilisateur non trouvé" }, status: :not_found if @user.nil?
 
     unless @user.valid_password?(params[:current_password])
-      return render json: { errors: "Incorrect password" }, status: :unauthorized
+      return render json: { errors: "Mot de passe incorrect" }, status: :unauthorized
     end
 
     if @user.update(update_user_params)
       render json: {
-        status: { code: 200, message: 'User updated successfully.' },
+        status: { code: 200, message: "L'utilisateur a mis à jour avec succès." },
         data: { user: @user }
       }, status: :ok
     else
