@@ -57,8 +57,6 @@ gem "stripe", "~> 11.7"
 
 gem "open-uri", "~> 0.4.1"
 
-gem "cloudinary", "~> 2.1"
-
 gem "sitemap_generator", "~> 6.3"
 
 gem "rspec", "~> 3.13"
